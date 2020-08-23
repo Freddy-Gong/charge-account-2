@@ -1,6 +1,8 @@
 import React from 'react'
 import styled from 'styled-components'
+
 require('icon/Money.svg')
+
 
 const Wrapper = styled.section`
     background:rgb(40,44,52);
@@ -80,5 +82,6 @@ const Money = () => {
         </>
     )
 }
+
 
 export default Money
