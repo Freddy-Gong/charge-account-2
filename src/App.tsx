@@ -1,8 +1,9 @@
 import React from 'react';
+import Money from './view/Money'
 
 function App() {
   return (
-    <div>hi</div>
+    <Money></Money>
   );
 }
 
