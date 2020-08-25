@@ -1,5 +1,6 @@
 import React from 'react';
 import MoneyPage from './view/Money'
+import NumberPadPage from './view/NumberPad'
 import {
   HashRouter as Router,
   Switch,
@@ -11,7 +12,6 @@ import styled from 'styled-components';
 
 
 const Nav = styled.nav`
-  border:1px solid black;
   > ul{
     display:flex;
     justify-content:center;
@@ -44,6 +44,9 @@ function App() {
             <Route path="/chart">
               <Chart />
             </Route>
+            <Route path="/number">
+              <NumberPad />
+            </Route>
             <Redirect from="/" to="/money" />
             <Route path="*">
               <NoMach />
@@ -61,6 +64,9 @@ function Money() {
 
 function Chart() {
   return <h2>chart</h2>;
+}
+function NumberPad() {
+  return <NumberPadPage />
 }
 function NoMach() {
   return <h2>404</h2>;

@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
-
-require('icon/Money.svg')
+import { Link } from 'react-router-dom'
+import Icon from 'Components/Icon'
 
 
 const Wrapper = styled.section`
@@ -37,7 +37,7 @@ const IconWrapper = styled.div`
         transform:translate(-50%);
         position:absolute;
         border-radius:60px;
-        > div{
+        > a{
             color:rgb(97,218,251);
             display:flex;
             justify-content;center;
@@ -71,14 +71,13 @@ const Money = () => {
             </Wrapper >
             <IconWrapper>
                 <div>
-                    <div>
-                        <svg className="icon">
-                            <use xlinkHref="#Money" />
-                        </svg>
+                    <Link to="/number">
+                        <Icon name="Money" />
                         <span>记一笔</span>
-                    </div>
+                    </Link>
                 </div>
             </IconWrapper>
+
         </>
     )
 }
