@@ -23,7 +23,7 @@ const Category = () => {
     const categoryMap = { '+': '收入', '-': '支出' }
     return (
         <CategoryWrapper>
-            {categoryList.map((c) => <span className={c === selectedC ? 'active' : ''} onClick={() => setSelectedC(c)}>{categoryMap[c]}</span>)}
+            {categoryList.map((c) => <span key={c} className={c === selectedC ? 'active' : ''} onClick={() => setSelectedC(c)}>{categoryMap[c]}</span>)}
         </CategoryWrapper>
     )
 }

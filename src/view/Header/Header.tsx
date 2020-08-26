@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react'
+import React, { useContext } from 'react'
 import styled from 'styled-components'
 import Icon from 'Components/Icon'
 import { manageContext } from '../NumberPad'
@@ -18,7 +18,9 @@ const Wrapper = styled.header`
 const Header: React.FC = () => {
     const { manageTag, setManageTag } = useContext(manageContext)
     const Manager = () => {
-        setManageTag(!manageTag)
+        if (setManageTag) {
+            setManageTag(!manageTag)
+        }
     }
     return (
         <Wrapper>
