@@ -86,18 +86,16 @@ const Wrapper = styled.div`
     grid-template-columns:repeat(5,20%);
     grid-template-rows:repeat(5,74px);
     > button {
-        background:white;
         margin: 8px;
         padding: 0;
-        border: 1px solid rgb(97,218,251);
+        border:1px solid rgb(97,218,251);
         display: block;
         outline: none;
         border-radius: 37px;
         font-size: 24px;
-        font-family: Helvetica;
-        font-weight: normal;
+        background:white;
         &:active{
-            border: 1px solid black;
+            color:rgb(97,218,251);
         }
     }        
 }   
