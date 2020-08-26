@@ -1,6 +1,6 @@
 import React from 'react';
 import MoneyPage from './view/Money'
-import NumberPadPage from './view/NumberPad'
+import { NumberPad as NumberPadPage } from './view/NumberPad'
 import {
   HashRouter as Router,
   Switch,
