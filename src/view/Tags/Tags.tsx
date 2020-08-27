@@ -27,6 +27,7 @@ const TagsSection: React.FC<Props> = (prop) => {
     const selectedTag = prop.value
     const getClassName = (tagId: number) => selectedTag === tagId && manageTag === false ? 'selected' : ''
     return (
+
         <Tags>
             {tags.map((t) =>
                 <TagWrapper key={t.id} onClick={() => prop.onChange(t.id)}
@@ -41,6 +42,8 @@ const TagsSection: React.FC<Props> = (prop) => {
                 <span>添加</span>
             </TagWrapper>
         </Tags>
+
+
     )
 }
 export default TagsSection

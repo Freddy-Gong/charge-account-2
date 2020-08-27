@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import { Link } from 'react-router-dom'
 import Icon from 'Components/Icon'
 import { useRecords, Record } from 'Hook/useRecords'
+import useTags from 'Hook/useTags'
 
 
 const Wrapper = styled.section`
@@ -54,9 +55,37 @@ const IconWrapper = styled.div`
         }
     }
 `
+const RecordWrapper = styled.div`
+    position:absolute;
+    border:1px solid red;
+    width:100%;
+    height:100%;
+    > div{
+        display:flex;
+        justify-content:center;
+        align-items:center;
+        > .line{
+            width:5px;
+            height:5px;
+            background:rgb(40,44,52);
+            border-radius:5px;
+        }
+        > span{
+            padding:10px;
+            width:5em;
+        }
+        > .day{
+            display:flex;
+            justify-content:flex-end;
+        }
+    }
+    
+`
+
 
 const Money = () => {
     const { records } = useRecords()
+    const { tags } = useTags()
     let income: Record[] = []
     let spending: Record[] = []
     records.map((r) => {
@@ -73,6 +102,30 @@ const Money = () => {
     const date = new Date()
     const Year = date.getFullYear().toString()
     const Month = (date.getMonth() + 1).toString()
+    const pen = document.getElementById('pen')
+    const recordWrapper = document.getElementById('RecordWrapper')
+    let top, height = 0
+    if (pen) {
+        top = pen.getClientRects()[0].top
+        height = pen.getClientRects()[0].height
+    }
+    if (recordWrapper && top && height) {
+        recordWrapper.style.top = top + height + 'px'
+    }
+    const hash: { [key: string]: Record[] } = {}
+    records.forEach((r) => {
+        const key = r.date
+        if (!(key in hash)) {
+            hash[key] = []
+        }
+        hash[key].push(r)
+    })
+    const array = Object.entries(hash).sort((a, b) => {
+        if (a[0] === b[0]) return 0
+        if (a[0] > b[0]) return -1
+        if (a[0] < b[0]) return 1
+        return 0
+    })
     return (
         <>
             <Wrapper>
@@ -88,14 +141,48 @@ const Money = () => {
                 </footer>
             </Wrapper >
             <IconWrapper>
-                <div>
+                <div id="pen">
                     <Link to="/number">
                         <Icon name="Money" />
                         <span>记一笔</span>
                     </Link>
                 </div>
             </IconWrapper>
-
+            <RecordWrapper id="RecordWrapper">
+                {array.map((a) =>
+                    <>
+                        <div key={a[0]}>
+                            <span className="day">{a[1][0].day + '日'}</span>
+                            <div className='line'></div>
+                            <span>{a[1].reduce((sum, item) => {
+                                const result = parseFloat(item.category + item.account.toString())
+                                return sum + result
+                            }, 0)}</span>
+                        </div>
+                        {a[1].map((a) =>
+                            <div >
+                                <span className="day">{tags.filter((t) =>
+                                    t.id === a.tagId
+                                )[0].name}</span>
+                                <Icon name={tags.filter((t) =>
+                                    t.id === a.tagId
+                                )[0].name} />
+                                <span>{parseFloat(a.category + a.account.toString())}</span>
+                            </div>
+                        )}
+                    </>
+                )}
+                {/* <div>
+                    <span className="day">day</span>
+                    <div className='line'></div>
+                    <span>money</span>
+                </div>
+                <div>
+                    <span className="day">居住</span>
+                    <Icon name="交通" />
+                    <span>money</span>
+                </div> */}
+            </RecordWrapper>
         </>
     )
 }
