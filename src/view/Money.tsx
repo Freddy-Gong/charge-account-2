@@ -2,6 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import { Link } from 'react-router-dom'
 import Icon from 'Components/Icon'
+import { useRecords, Record } from 'Hook/useRecords'
 
 
 const Wrapper = styled.section`
@@ -55,18 +56,35 @@ const IconWrapper = styled.div`
 `
 
 const Money = () => {
+    const { records } = useRecords()
+    let income: Record[] = []
+    let spending: Record[] = []
+    records.map((r) => {
+        if (r.category === '+') {
+            income.push(r)
+        } else {
+            spending.push(r)
+        }
+        return { income, spending }
+    })
+    const incomeMoney = income.reduce((sum, item) => { return sum + item.account }, 0)
+    const spendingMoney = spending.reduce((sum, item) => { return sum + item.account }, 0)
+    const restMoney = incomeMoney - spendingMoney
+    const date = new Date()
+    const Year = date.getFullYear().toString()
+    const Month = (date.getMonth() + 1).toString()
     return (
         <>
             <Wrapper>
                 <header>
-                    <span>2020-8</span>
+                    <span>{Year + '-' + Month}</span>
                     <span>本月结余</span>
-                    <span className="in">2020-8</span>
+                    <span className="in">{Year + '-' + Month}</span>
                 </header>
-                <main>Money</main>
+                <main>{restMoney}</main>
                 <footer>
-                    <span>收入:xxx</span>
-                    <span>支出:xxx</span>
+                    <span>收入:{incomeMoney}</span>
+                    <span>支出:{spendingMoney}</span>
                 </footer>
             </Wrapper >
             <IconWrapper>

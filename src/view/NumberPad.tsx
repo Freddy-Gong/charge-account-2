@@ -3,6 +3,9 @@ import PadSection from './NumberPad/Pad'
 import TagsSection from './Tags/Tags'
 import Category from './Category/Category'
 import Header from './Header/Header'
+import { useRecords } from 'Hook/useRecords'
+
+
 type Context = {
     manageTag: boolean;
     setManageTag: Dispatch<SetStateAction<boolean>>;
@@ -23,8 +26,12 @@ const NumberPad = () => {
             ...obj
         })
     }
+    const { addRecords } = useRecords()
     const submit = () => {
-
+        if (addRecords(selected) === true) {
+            alert('保存成功')
+            setSelected(defaultDate)
+        }
     }
     const [manageTag, setManageTag] = useState(false)
     return (

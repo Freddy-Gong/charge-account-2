@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import createId from 'lib/CreateId'
+import { useUpdate } from './useUpdate'
 
 const useTags = () => {
     const [tags, setTags] = useState<{ id: number, name: string }[]>([])
@@ -11,6 +12,9 @@ const useTags = () => {
         }
         setTags(localTags)
     }, [])
+    useUpdate(() => {
+        window.localStorage.setItem('tags', JSON.stringify(tags))
+    }, tags)
     const AddTag = () => {
         const tagName = window.prompt('新标签名称')
         if (tagName !== null && tagName !== '') {
