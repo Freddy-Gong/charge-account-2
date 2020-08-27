@@ -50,6 +50,9 @@ const Wrapper = styled.div`
             width:2em;
             height:1em;
         }
+        &:active{
+            fill:rgb(97,218,251);
+        }
     }
     .add{
         grid-area:add;

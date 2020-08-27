@@ -1,37 +1,39 @@
-import React, { useState } from 'react'
+import React, { useContext } from 'react'
 import useTags from 'Hook/useTags'
 import TagWrapper from './TagWrapper'
 import Icon from 'Components/Icon'
 import styled from 'styled-components'
+import { manageContext } from '../NumberPad'
+
 
 const Tags = styled.div`
     display:flex;
     flex-wrap:wrap;
     > .selected{
-        > .icon{
+        > .sign{
             border:1px solid black;
         }
     }
 `
+
 type Props = {
-    manage: boolean;
+    value: number,
+    onChange: (value: number) => void
 }
 
 const TagsSection: React.FC<Props> = (prop) => {
-    const { tags, AddTag, DeleteTag } = useTags()
-    const [selectedTag, setSelectedTag] = useState<number>()
-    const selected = (tagId: number) => {
-        setSelectedTag(tagId)
-    }
-    const getClassName = (tagId: number) => selectedTag === tagId ? 'selected' : ''
+    const { tags, AddTag } = useTags()
+    const { manageTag } = useContext(manageContext)
+    const selectedTag = prop.value
+    const getClassName = (tagId: number) => selectedTag === tagId && manageTag === false ? 'selected' : ''
     return (
         <Tags>
             {tags.map((t) =>
-                <TagWrapper key={t.id} onClick={() => selected(t.id)}
+                <TagWrapper key={t.id} onClick={() => prop.onChange(t.id)}
                     className={getClassName(t.id)}>
-                    <Icon name={t.name} />
+                    <Icon name={t.name} className="sign" />
                     <span>{t.name}</span>
-                    <Icon name='删除' className={'delete' + (prop.manage ? 'Active' : '')} onClick={() => DeleteTag(t.id)} />
+                    <Icon name='编辑' className={'delete' + (manageTag ? 'Active' : '')} />
                 </TagWrapper>
             )}
             <TagWrapper onClick={AddTag}>

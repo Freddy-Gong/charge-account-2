@@ -2,11 +2,28 @@ import React, { useState } from 'react'
 import Icon from "Components/Icon"
 import Wrapper from './Wrapper'
 
+type Props = {
+    value: number,
+    onChange: (value: number) => void,
+    onOk: () => void
+}
 
-const PadSection = () => {
-    const [result, setResult] = useState('0')
+const PadSection: React.FC<Props> = (props) => {
+    const [result, _setResult] = useState(props.value.toString())
     const [calculator, setCalculator] = useState(false)
     const [dot, setDot] = useState(true)
+    const setResult = (result: string) => {
+        let newResult: string
+        if (result.length > 16) {
+            newResult = result.slice(0, 16)
+        } else if (result.length === 0) {
+            newResult = '0'
+        } else {
+            newResult = result
+        }
+        _setResult(newResult)
+        props.onChange(parseFloat(newResult))
+    }
     const Delete = () => {
         if (result.length === 1) {
             setResult('0')
@@ -65,6 +82,8 @@ const PadSection = () => {
                 setResult(parseFloat(evil(equation).toFixed(9)).toString())
                 break
             case 'OK':
+                props.onOk()
+                setResult('0')
                 break
         }
     }

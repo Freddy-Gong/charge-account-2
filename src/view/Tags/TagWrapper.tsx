@@ -20,8 +20,8 @@ const TagWrapper = styled.div`
     > .deleteActive{
         display:block;
         position:absolute;
-        top:-8px;
-        right:0;
+        top:-12px;
+        right:-4px;
         width:2em;
     }
     > span{
