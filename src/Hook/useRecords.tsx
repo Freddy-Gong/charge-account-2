@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useUpdate } from './useUpdate'
+import Time from 'Components/TIme'
 
 export type Record = {
     tagId: number,
@@ -15,6 +16,7 @@ const useRecords = () => {
     useEffect(() => {
         setRecords(JSON.parse(window.localStorage.getItem('records') || '[]'))
     }, [])
+    const { FullTime, Day } = Time()
     const addRecords = (newRecord: newRecord) => {
         if (newRecord.account <= 0) {
             alert('请输入金额')
@@ -24,7 +26,7 @@ const useRecords = () => {
             alert('请选择标签')
             return false
         }
-        const record = { ...newRecord, date: new Date().getFullYear().toString() + '-' + (new Date().getMonth() + 1).toString() + '-' + (new Date().getDate()).toString(), day: (new Date().getDate()).toString() }
+        const record = { ...newRecord, date: FullTime, day: Day }
         setRecords([...records, record])
         return true
     }

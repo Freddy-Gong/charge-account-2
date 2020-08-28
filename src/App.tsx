@@ -1,5 +1,6 @@
 import React from 'react';
 import MoneyPage from './view/Money'
+import ChartPage from './view/Chart/Chart'
 import { NumberPad as NumberPadPage } from './view/NumberPad'
 import {
   HashRouter as Router,
@@ -27,16 +28,6 @@ function App() {
     <>
       <Router>
         <div>
-          <Nav>
-            <ul>
-              <li>
-                <Link to="/money">记账</Link>
-              </li>
-              <li>
-                <Link to="/chart">图表</Link>
-              </li>
-            </ul>
-          </Nav>
           <Switch>
             <Route path="/money">
               <Money />
@@ -59,11 +50,36 @@ function App() {
   );
 }
 function Money() {
-  return <MoneyPage />;
+
+  return <>
+    <Nav>
+      <ul>
+        <li>
+          <Link to="/money">记账</Link>
+        </li>
+        <li>
+          <Link to="/chart">图表</Link>
+        </li>
+      </ul>
+    </Nav>
+    <MoneyPage />;
+  </>
 }
 
 function Chart() {
-  return <h2>chart</h2>;
+  return <>
+    <Nav>
+      <ul>
+        <li>
+          <Link to="/money">记账</Link>
+        </li>
+        <li>
+          <Link to="/chart">图表</Link>
+        </li>
+      </ul>
+    </Nav>
+    <ChartPage />;
+  </>
 }
 function NumberPad() {
   return <NumberPadPage />

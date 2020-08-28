@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 import Icon from 'Components/Icon'
 import { useRecords, Record } from 'Hook/useRecords'
 import useTags from 'Hook/useTags'
-
+import Time from 'Components/TIme'
 
 const Wrapper = styled.section`
     background:rgb(40,44,52);
@@ -57,13 +57,13 @@ const IconWrapper = styled.div`
 `
 const RecordWrapper = styled.div`
     position:absolute;
-    border:1px solid red;
     width:100%;
-    height:100%;
+    overflow:scroll;
     > div{
         display:flex;
         justify-content:center;
         align-items:center;
+        padding:5px 0px;
         > .line{
             width:5px;
             height:5px;
@@ -74,7 +74,7 @@ const RecordWrapper = styled.div`
             padding:10px;
             width:5em;
         }
-        > .day{
+        > span:first-child{
             display:flex;
             justify-content:flex-end;
         }
@@ -99,9 +99,7 @@ const Money = () => {
     const incomeMoney = income.reduce((sum, item) => { return sum + item.account }, 0)
     const spendingMoney = spending.reduce((sum, item) => { return sum + item.account }, 0)
     const restMoney = incomeMoney - spendingMoney
-    const date = new Date()
-    const Year = date.getFullYear().toString()
-    const Month = (date.getMonth() + 1).toString()
+    const { YearAndMonth } = Time()
     const pen = document.getElementById('pen')
     const recordWrapper = document.getElementById('RecordWrapper')
     let top, height = 0
@@ -111,6 +109,7 @@ const Money = () => {
     }
     if (recordWrapper && top && height) {
         recordWrapper.style.top = top + height + 'px'
+        recordWrapper.style.height = document.body.clientHeight - top - height + 'px'
     }
     const hash: { [key: string]: Record[] } = {}
     records.forEach((r) => {
@@ -130,9 +129,9 @@ const Money = () => {
         <>
             <Wrapper>
                 <header>
-                    <span>{Year + '-' + Month}</span>
+                    <span>{YearAndMonth}</span>
                     <span>本月结余</span>
-                    <span className="in">{Year + '-' + Month}</span>
+                    <span className="in">{YearAndMonth}</span>
                 </header>
                 <main>{restMoney}</main>
                 <footer>
@@ -152,36 +151,39 @@ const Money = () => {
                 {array.map((a) =>
                     <>
                         <div key={a[0]}>
-                            <span className="day">{a[1][0].day + '日'}</span>
+                            <span >{a[1][0].day + '日'}</span>
                             <div className='line'></div>
                             <span>{a[1].reduce((sum, item) => {
                                 const result = parseFloat(item.category + item.account.toString())
                                 return sum + result
                             }, 0)}</span>
                         </div>
-                        {a[1].map((a) =>
-                            <div >
-                                <span className="day">{tags.filter((t) =>
-                                    t.id === a.tagId
-                                )[0].name}</span>
-                                <Icon name={tags.filter((t) =>
-                                    t.id === a.tagId
-                                )[0].name} />
-                                <span>{parseFloat(a.category + a.account.toString())}</span>
-                            </div>
+                        {a[1].map((a) => {
+                            if (a.category === '-') {
+                                return <div >
+                                    <span >{tags.filter((t) =>
+                                        t.id === a.tagId
+                                    )[0].name}</span>
+                                    <Icon name={tags.filter((t) =>
+                                        t.id === a.tagId
+                                    )[0].name} />
+                                    <span>{parseFloat(a.category + a.account.toString())}</span>
+                                </div>
+                            } else {
+                                return <div >
+                                    <span>{parseFloat(a.category + a.account.toString())}</span>
+                                    <Icon name={tags.filter((t) =>
+                                        t.id === a.tagId
+                                    )[0].name} />
+                                    <span >{tags.filter((t) =>
+                                        t.id === a.tagId
+                                    )[0].name}</span>
+                                </div>
+                            }
+                        }
                         )}
                     </>
                 )}
-                {/* <div>
-                    <span className="day">day</span>
-                    <div className='line'></div>
-                    <span>money</span>
-                </div>
-                <div>
-                    <span className="day">居住</span>
-                    <Icon name="交通" />
-                    <span>money</span>
-                </div> */}
             </RecordWrapper>
         </>
     )
