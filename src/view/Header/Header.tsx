@@ -4,9 +4,10 @@ import Icon from 'Components/Icon'
 import { manageContext } from '../NumberPad'
 import { useHistory } from 'react-router-dom'
 const Wrapper = styled.header`
-    padding:5px 0;
+    padding:10px 0;
     padding-left:0.5em;
     padding-right:0.5em;
+    font-size:20px;
     background:rgb(97,218,251);
     color:white;
     display:flex;

@@ -2,6 +2,7 @@ import styled from 'styled-components'
 
 const TagWrapper = styled.div`
     width:20%;
+    height:50%;
     padding:5px 5px;
     display:flex;
     flex-direction:column;

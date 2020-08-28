@@ -38,7 +38,7 @@ const NumberPad = () => {
         <manageContext.Provider value={{ manageTag, setManageTag }}>
             <Header />
             <Category value={selected.category} onChange={(category) => onChange({ category })} />
-            <TagsSection value={selected.tagId} onChange={(tagId) => {
+            <TagsSection value={selected.tagId} classify={selected.category} onChange={(tagId) => {
                 onChange({ tagId })
             }} />
             <PadSection value={selected.account} onChange={(account) => {
