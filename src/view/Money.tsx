@@ -5,6 +5,7 @@ import Icon from 'Components/Icon'
 import { useRecords, Record } from 'Hook/useRecords'
 import useTags from 'Hook/useTags'
 import Time from 'Components/TIme'
+import createKey from 'lib/CreateKey'
 
 const Wrapper = styled.section`
     background:rgb(40,44,52);
@@ -160,7 +161,7 @@ const Money = () => {
                         </div>
                         {a[1].map((a) => {
                             if (a.category === '-') {
-                                return <div >
+                                return <div key={createKey()}>
                                     <span >{tags.filter((t) =>
                                         t.id === a.tagId
                                     )[0].name}</span>
@@ -170,7 +171,7 @@ const Money = () => {
                                     <span>{parseFloat(a.category + a.account.toString())}</span>
                                 </div>
                             } else {
-                                return <div >
+                                return <div key={createKey()}>
                                     <span>{parseFloat(a.category + a.account.toString())}</span>
                                     <Icon name={tags.filter((t) =>
                                         t.id === a.tagId

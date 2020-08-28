@@ -1,10 +1,9 @@
-import React, { useContext, useRef, useEffect } from 'react'
+import React, { useContext, useRef } from 'react'
 import useTags from 'Hook/useTags'
 import TagWrapper from './TagWrapper'
 import Icon from 'Components/Icon'
 import styled from 'styled-components'
 import { manageContext } from '../NumberPad'
-import { useUpdate } from 'Hook/useUpdate'
 
 
 const Tags = styled.div`
