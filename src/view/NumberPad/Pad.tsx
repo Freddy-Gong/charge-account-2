@@ -5,6 +5,7 @@ import Wrapper from './Wrapper'
 type Props = {
     value: number,
     onChange: (value: number) => void,
+    onNote: (note: string) => void,
     onOk: () => void
 }
 
@@ -87,9 +88,16 @@ const PadSection: React.FC<Props> = (props) => {
                 break
         }
     }
+    const Note = () => {
+        const note = window.prompt('备注')
+        if (note !== null) {
+            props.onNote(note)
+        }
+    }
     return (
         <Wrapper>
             <div className="calculator" onClick={calculate}>
+                <div className="note" onClick={Note}>备注</div>
                 <div className="result">{result}</div>
                 <button className="number-1" >1</button>
                 <button className="number-2" >2</button>

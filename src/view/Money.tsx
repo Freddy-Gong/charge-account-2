@@ -71,13 +71,30 @@ const RecordWrapper = styled.div`
             background:rgb(40,44,52);
             border-radius:5px;
         }
-        > span{
-            padding:10px;
-            width:5em;
-        }
-        > span:first-child{
+        .day{
             display:flex;
             justify-content:flex-end;
+        }
+        > span{
+            padding:10px;
+            width:4em;
+            height:100%
+        }
+        > span:nth-child(2){
+            display:flex;
+            justify-content:flex-end;
+        }
+        > span:first-child{
+            width:8em;
+            white-space:nowrap;
+            overflow:hidden;
+            text-overflow:ellipsis;
+        }
+        > span:last-child{
+            width:8em;
+            white-space:nowrap;
+            overflow:hidden;
+            text-overflow:ellipsis;
         }
     }
     
@@ -126,6 +143,7 @@ const Money = () => {
         if (a[0] < b[0]) return 1
         return 0
     })
+    console.log(array)
     return (
         <>
             <Wrapper>
@@ -152,7 +170,7 @@ const Money = () => {
                 {array.map((a) =>
                     <>
                         <div key={a[0]}>
-                            <span >{a[1][0].day + '日'}</span>
+                            <span className="day">{a[1][0].day + '日'}</span>
                             <div className='line'></div>
                             <span>{a[1].reduce((sum, item) => {
                                 const result = parseFloat(item.category + item.account.toString())
@@ -162,6 +180,7 @@ const Money = () => {
                         {a[1].map((a) => {
                             if (a.category === '-') {
                                 return <div key={createKey()}>
+                                    <span >{a.note}</span>
                                     <span >{tags.filter((t) =>
                                         t.id === a.tagId
                                     )[0].name}</span>
@@ -169,9 +188,11 @@ const Money = () => {
                                         t.id === a.tagId
                                     )[0].name} />
                                     <span>{parseFloat(a.category + a.account.toString())}</span>
+                                    <span></span>
                                 </div>
                             } else {
                                 return <div key={createKey()}>
+                                    <span></span>
                                     <span>{parseFloat(a.category + a.account.toString())}</span>
                                     <Icon name={tags.filter((t) =>
                                         t.id === a.tagId
@@ -179,6 +200,7 @@ const Money = () => {
                                     <span >{tags.filter((t) =>
                                         t.id === a.tagId
                                     )[0].name}</span>
+                                    <span >{a.note}</span>
                                 </div>
                             }
                         }

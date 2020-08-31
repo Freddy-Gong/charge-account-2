@@ -2,6 +2,17 @@ import styled from 'styled-components'
 
 const Wrapper = styled.div`
 .calculator{
+    .note{
+        grid-area:note;
+        font-size:20px;
+        border:1px solid rgb(97,218,251);
+        border-radius:15px;
+        margin:8px;
+        display:flex;
+        justify-content:center;
+        align-items:center;
+        color:rgb(97,218,251);
+    }
     .result{
         grid-area: result;
         text-align: right;
@@ -81,7 +92,7 @@ const Wrapper = styled.div`
     }
     display:grid;
     grid-template-areas: 
-    "result result result result result"
+    "note result result result result"
     "number-7 number-8 number-9 divide ac"
     "number-4 number-5 number-6 multiply delete"
     "number-3 number-2 number-1 subtract OK"

@@ -15,7 +15,8 @@ const manageContext = React.createContext<Partial<Context>>({})
 const defaultDate = {
     tagId: -1 as number,
     category: '-' as ('-' | '+'),
-    account: 0
+    account: 0,
+    note: '',
 }
 
 const NumberPad = () => {
@@ -43,7 +44,7 @@ const NumberPad = () => {
             }} />
             <PadSection value={selected.account} onChange={(account) => {
                 onChange({ account })
-            }} onOk={submit} />
+            }} onOk={submit} onNote={(note) => { onChange({ note }) }} />
         </manageContext.Provider>
     )
 }

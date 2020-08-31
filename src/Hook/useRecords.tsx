@@ -4,10 +4,11 @@ import Time from 'Components/TIme'
 
 export type Record = {
     tagId: number,
-    category: '-' | '+'
-    account: number
-    date: string
-    day: string
+    category: '-' | '+',
+    account: number,
+    note: string,
+    date: string,
+    day: string,
 }
 type newRecord = Omit<Record, 'date' | 'day'>
 
