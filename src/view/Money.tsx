@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import styled from 'styled-components'
 import { Link } from 'react-router-dom'
 import Icon from 'Components/Icon'
@@ -104,9 +104,14 @@ const RecordWrapper = styled.div`
 const Money = () => {
     const { records, array } = useRecords()
     const { tags } = useTags()
-    console.log(tags)
-    console.log(tags[1])
-    // console.log(tags[1].id) 加上就会报错
+    useEffect(() => {
+        if (tags) {
+            console.log(tags)
+            console.log(tags[1])
+            console.log(tags[1] && tags[1].id)
+        }
+    }, [tags])
+
     let income: Record[] = []
     let spending: Record[] = []
     records.map((r) => {
@@ -167,15 +172,15 @@ const Money = () => {
                             }, 0)}</span>
                         </div>
                         {a[1].map((a) => {
-                            if (a.category === '-') {
+                            if (a.category === '-' && tags && tags[0]) {
                                 return <div key={createKey()}>
                                     <span >{a.note}</span>
-                                    {/* <span >{tags.filter((t) =>
+                                    <span >{tags.filter((t) =>
                                         t.id === a.tagId
                                     )[0].name}</span>
                                     <Icon name={tags.filter((t) =>
                                         t.id === a.tagId
-                                    )[0].name} /> */}
+                                    )[0].name} />
                                     <span>{parseFloat(a.category + a.account.toString())}</span>
                                     <span></span>
                                 </div>
@@ -183,12 +188,12 @@ const Money = () => {
                                 return <div key={createKey()}>
                                     <span></span>
                                     <span>{parseFloat(a.category + a.account.toString())}</span>
-                                    {/* <Icon name={tags.filter((t) =>
+                                    <Icon name={tags.filter((t) =>
                                         t.id === a.tagId
                                     )[0].name} />
                                     <span >{tags.filter((t) =>
                                         t.id === a.tagId
-                                    )[0].name}</span> */}
+                                    )[0].name}</span>
                                     <span >{a.note}</span>
                                 </div>
                             }
