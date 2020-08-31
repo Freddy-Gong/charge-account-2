@@ -1,10 +1,9 @@
-import React, { useRef, useEffect, useState } from 'react'
+import React, { useRef, useEffect } from 'react'
 import styled from 'styled-components'
 import echarts from 'echarts'
 import Time from 'Components/TIme'
 import { useRecords, Record } from 'Hook/useRecords'
 import { defaultDate } from '../NumberPad'
-import { useUpdate } from 'Hook/useUpdate'
 
 
 const Chart = styled.div`
@@ -16,17 +15,12 @@ type Props = {
 }
 
 const ChartSection: React.FC<Props> = (props) => {
-    if (props.value === '-') {
-        console.log('支出')
-    } else {
-        console.log('收入')
-    }
     const { records } = useRecords()
     const container = useRef<HTMLDivElement>(null)
     const { MonthNumber, DayNumber, YearNumber } = Time()
     const XArray: string[] = []
     for (let i = 0; i < 8; i++) {
-        XArray.push(MonthNumber + '-' + (DayNumber - i))
+        XArray.push(MonthNumber + '-' + (DayNumber - 7 + i))
     }
     const hash: { [key: string]: Partial<Record>[] } = {}
     XArray.forEach((x) => {
@@ -39,7 +33,9 @@ const ChartSection: React.FC<Props> = (props) => {
             }
         })
     })
-    let spending: number[], income: number[], Spending: number[] = [], Income: number[] = []
+    console.log(XArray)
+    let spending: number[], income: number[]
+    const Spending: number[] = [], Income: number[] = []
     const ChartArray = Object.entries(hash)
     ChartArray.map((ca) => {
         spending = [0]
@@ -56,23 +52,39 @@ const ChartSection: React.FC<Props> = (props) => {
         Spending.push(spending.reduce((sum, item) => { return sum + item }, 0))
         return { Income, Spending }
     })
-    const [option, setOption] = useState({
-        tooltip: {},
-        xAxis: {
-            data: XArray.reverse()
-        },
-        yAxis: {},
-        series: [{
-            type: 'bar',
-            data: Income.reverse()
-        }]
-    })
-    useUpdate(() => {
+    let option: {}
+    if (props.value === '-') {
+        option = {
+            tooltip: {},
+            xAxis: {
+                data: XArray
+            },
+            yAxis: {},
+            series: [{
+                type: 'bar',
+                data: Spending
+            }]
+        }
+    } else {
+        option = {
+            tooltip: {},
+            xAxis: {
+                data: XArray
+            },
+            yAxis: {},
+            series: [{
+                type: 'bar',
+                data: Income
+            }]
+        }
+    }
+    useEffect(() => {
         if (container.current) {
             const myEcharts = echarts.init(container.current)
-            myEcharts.setOption(option);
+            myEcharts.setOption(option)
         }
     }, [option])
+
     return (
         <Chart ref={container} />
     )
