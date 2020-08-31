@@ -104,14 +104,14 @@ const RecordWrapper = styled.div`
 const Money = () => {
     const { records, array } = useRecords()
     const { tags } = useTags()
-    useEffect(() => {
-        if (tags) {
-            console.log(tags)
-            console.log(tags[1])
-            console.log(tags[1] && tags[1].id)
-        }
-    }, [tags])
-
+    // useEffect(() => {
+    //     if (tags) {
+    //         console.log(tags)
+    //         console.log(tags[1])
+    //         console.log(tags[1] && tags[1].id)
+    //     }
+    // }, [tags])
+    //console.log(tags[1].id) //加上就会报错
     let income: Record[] = []
     let spending: Record[] = []
     records.map((r) => {

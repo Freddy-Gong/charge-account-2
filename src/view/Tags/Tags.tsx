@@ -25,7 +25,7 @@ type Props = {
 }
 
 const TagsSection: React.FC<Props> = (prop) => {
-    const { tags, AddTag } = useTags(prop.classify)
+    const { tags, AddTag, DeleteTag } = useTags(prop.classify)
     const { manageTag } = useContext(manageContext)
     const selectedTag = prop.value
     const TagWrapperRef = useRef<HTMLDivElement>(null)
@@ -38,6 +38,10 @@ const TagsSection: React.FC<Props> = (prop) => {
     // }, [])
     const getClassName = (tagId: number) => selectedTag === tagId && manageTag === false ? 'selected' : ''
     const showTags = tags.filter((t) => t.category === prop.classify)
+    const stop = (e: React.MouseEvent, id: number) => {
+        e.stopPropagation()
+        DeleteTag(id)
+    }
     return (
         <Tags ref={TagRef}>
             {showTags.map((t) =>
@@ -45,7 +49,7 @@ const TagsSection: React.FC<Props> = (prop) => {
                     className={getClassName(t.id)}>
                     <Icon name={t.name} className="sign" />
                     <span>{t.name}</span>
-                    <Icon name='编辑' className={'delete' + (manageTag ? 'Active' : '')} />
+                    <Icon name='删除' className={'delete' + (manageTag ? 'Active' : '')} onClick={() => DeleteTag(t.id)} />
                 </TagWrapper>
             )}
             <TagWrapper ref={TagWrapperRef} onClick={AddTag}>
