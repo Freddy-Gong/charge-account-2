@@ -104,6 +104,9 @@ const RecordWrapper = styled.div`
 const Money = () => {
     const { records, array } = useRecords()
     const { tags } = useTags()
+    console.log(tags)
+    console.log(tags[1])
+    // console.log(tags[1].id) 加上就会报错
     let income: Record[] = []
     let spending: Record[] = []
     records.map((r) => {
@@ -167,12 +170,12 @@ const Money = () => {
                             if (a.category === '-') {
                                 return <div key={createKey()}>
                                     <span >{a.note}</span>
-                                    <span >{tags.filter((t) =>
+                                    {/* <span >{tags.filter((t) =>
                                         t.id === a.tagId
                                     )[0].name}</span>
                                     <Icon name={tags.filter((t) =>
                                         t.id === a.tagId
-                                    )[0].name} />
+                                    )[0].name} /> */}
                                     <span>{parseFloat(a.category + a.account.toString())}</span>
                                     <span></span>
                                 </div>
@@ -180,12 +183,12 @@ const Money = () => {
                                 return <div key={createKey()}>
                                     <span></span>
                                     <span>{parseFloat(a.category + a.account.toString())}</span>
-                                    <Icon name={tags.filter((t) =>
+                                    {/* <Icon name={tags.filter((t) =>
                                         t.id === a.tagId
                                     )[0].name} />
                                     <span >{tags.filter((t) =>
                                         t.id === a.tagId
-                                    )[0].name}</span>
+                                    )[0].name}</span> */}
                                     <span >{a.note}</span>
                                 </div>
                             }
