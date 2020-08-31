@@ -49,4 +49,4 @@ const NumberPad = () => {
     )
 }
 
-export { NumberPad, manageContext }
+export { NumberPad, manageContext, defaultDate }

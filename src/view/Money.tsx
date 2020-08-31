@@ -102,7 +102,7 @@ const RecordWrapper = styled.div`
 
 
 const Money = () => {
-    const { records } = useRecords()
+    const { records, array } = useRecords()
     const { tags } = useTags()
     let income: Record[] = []
     let spending: Record[] = []
@@ -129,21 +129,7 @@ const Money = () => {
         recordWrapper.style.top = top + height + 'px'
         recordWrapper.style.height = document.body.clientHeight - top - height + 'px'
     }
-    const hash: { [key: string]: Record[] } = {}
-    records.forEach((r) => {
-        const key = r.date
-        if (!(key in hash)) {
-            hash[key] = []
-        }
-        hash[key].push(r)
-    })
-    const array = Object.entries(hash).sort((a, b) => {
-        if (a[0] === b[0]) return 0
-        if (a[0] > b[0]) return -1
-        if (a[0] < b[0]) return 1
-        return 0
-    })
-    console.log(array)
+
     return (
         <>
             <Wrapper>

@@ -34,9 +34,26 @@ const useRecords = () => {
     useUpdate(() => {
         window.localStorage.setItem('records', JSON.stringify(records))
     }, records)
+
+    //排序
+    const hash: { [key: string]: Record[] } = {}
+    records.forEach((r) => {
+        const key = r.date
+        if (!(key in hash)) {
+            hash[key] = []
+        }
+        hash[key].push(r)
+    })
+    const array = Object.entries(hash).sort((a, b) => {
+        if (a[0] === b[0]) return 0
+        if (a[0] > b[0]) return -1
+        if (a[0] < b[0]) return 1
+        return 0
+    })
     return {
         records,
-        addRecords
+        addRecords,
+        array,
     }
 }
 export { useRecords }
