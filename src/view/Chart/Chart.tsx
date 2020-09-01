@@ -24,10 +24,10 @@ const Header = styled.div`
     > .time{
         border:2px solid rgb(97,218,251);
         border-radius:5px;
-        > span:first-child{
+        > span{
             color:rgb(97,218,251);
         }
-        > span:last-child{
+        > .active{
             background:rgb(97,218,251);
             color:white;
         }
@@ -47,6 +47,7 @@ const Header = styled.div`
 const Chart = () => {
     const { MonthAndDay } = Time();
     const [category, setCategory] = useState<'-' | '+'>('-')
+    const [time, setTime] = useState<'day' | 'month'>('day')
     const change = () => {
         if (category === '-') {
             setCategory('+')
@@ -58,8 +59,8 @@ const Chart = () => {
         <>
             <Header>
                 <div className="time">
-                    <span>月</span>
-                    <span>日</span>
+                    <span className={time === 'month' ? 'active' : ''} onClick={() => setTime('month')}>月</span>
+                    <span className={time === 'day' ? 'active' : ''} onClick={() => setTime('day')}>日</span>
                 </div>
                 <Icon name="RightCopy" />
                 <div>{MonthAndDay}</div>
@@ -69,7 +70,7 @@ const Chart = () => {
                     <option value='+' >收入</option>
                 </select>
             </Header>
-            <ChartSection value={category} />
+            <ChartSection value={category} time={time} />
         </>
     )
 }

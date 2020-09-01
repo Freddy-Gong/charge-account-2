@@ -9,15 +9,16 @@ export type Record = {
     note: string,
     date: string,
     day: string,
+    month: string,
 }
-type newRecord = Omit<Record, 'date' | 'day'>
+type newRecord = Omit<Record, 'date' | 'day' | 'month'>
 
 const useRecords = () => {
     const [records, setRecords] = useState<Record[]>([])
     useEffect(() => {
         setRecords(JSON.parse(window.localStorage.getItem('records') || '[]'))
     }, [])
-    const { FullTime, Day } = Time()
+    const { FullTime, Day, Month } = Time()
     const addRecords = (newRecord: newRecord) => {
         if (newRecord.account <= 0) {
             alert('请输入金额')
@@ -27,7 +28,7 @@ const useRecords = () => {
             alert('请选择标签')
             return false
         }
-        const record = { ...newRecord, date: FullTime, day: Day }
+        const record = { ...newRecord, date: FullTime, day: Day, month: Month }
         setRecords([...records, record])
         return true
     }

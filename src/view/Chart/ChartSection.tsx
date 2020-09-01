@@ -11,7 +11,8 @@ const Chart = styled.div`
     height:400px;
 `
 type Props = {
-    value: '-' | '+'
+    value: '-' | '+',
+    time: 'day' | 'month'
 }
 
 const ChartSection: React.FC<Props> = (props) => {
@@ -19,31 +20,56 @@ const ChartSection: React.FC<Props> = (props) => {
     const container = useRef<HTMLDivElement>(null)
     const { MonthNumber, DayNumber, YearNumber } = Time()
     const XArray: string[] = []
-    if (DayNumber < 8) {
-        for (let i = 1; i < 9; i++) {
+    let startSet: number = 0
+    let endSet: number = 0
+    const hash: { [key: string]: Partial<Record>[] } = {}
+    if (props.time === 'day') {
+        for (let i = 1; i < 31; i++) {
             XArray.push(MonthNumber + '-' + i)
         }
-    } else {
-        for (let i = 0; i < 8; i++) {
-            XArray.push(MonthNumber + '-' + (DayNumber - 7 + i))
+        if (DayNumber < 8) {
+            startSet = 0
+            endSet = 20
+        } else {
+            endSet = DayNumber / 30 * 100
+            startSet = endSet - 20
         }
-    }
-
-    const hash: { [key: string]: Partial<Record>[] } = {}
-    XArray.forEach((x) => {
-        if (!(x in hash)) {
-            hash[x] = [defaultDate]
-        }
-        records.forEach((r) => {
-            if (YearNumber + '-' + x === r.date) {
-                hash[x].push(r)
+        XArray.forEach((x) => {
+            if (!(x in hash)) {
+                hash[x] = [defaultDate]
             }
+            records.forEach((r) => {
+                if (YearNumber + '-' + x === r.date) {
+                    hash[x].push(r)
+                }
+            })
         })
-    })
-    console.log(XArray)
+    } else if (props.time === 'month') {
+        for (let i = 1; i < 13; i++) {
+            XArray.push(i.toString())
+        }
+        if (MonthNumber < 8) {
+            startSet = 0
+            endSet = 50
+        } else {
+            endSet = MonthNumber / 12 * 100
+            startSet = endSet - 50
+        }
+        XArray.forEach((x) => {
+            if (!(x in hash)) {
+                hash[x] = [defaultDate]
+            }
+            records.forEach((r) => {
+                if (x === r.month) {
+                    hash[x].push(r)
+                }
+            })
+        })
+    }
     let spending: number[], income: number[]
     const Spending: number[] = [], Income: number[] = []
     const ChartArray = Object.entries(hash)
+    console.log(ChartArray)
     ChartArray.map((ca) => {
         spending = [0]
         income = [0]
@@ -66,7 +92,16 @@ const ChartSection: React.FC<Props> = (props) => {
             xAxis: {
                 data: XArray
             },
-            yAxis: {},
+            yAxis: {
+            },
+            dataZoom: [{
+                type: 'slider',
+                start: startSet,
+                end: endSet,
+            }],
+            itemStyle: {
+                color: '#c23531'
+            },
             series: [{
                 type: 'bar',
                 data: Spending
@@ -79,6 +114,14 @@ const ChartSection: React.FC<Props> = (props) => {
                 data: XArray
             },
             yAxis: {},
+            dataZoom: [{
+                type: 'slider',
+                start: startSet,
+                end: endSet,
+            }],
+            itemStyle: {
+                color: 'green'
+            },
             series: [{
                 type: 'bar',
                 data: Income

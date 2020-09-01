@@ -43,7 +43,7 @@ const TagsSection: React.FC<Props> = (prop) => {
             {showTags.map((t) =>
                 <TagWrapper key={t.id} onClick={() => prop.onChange(t.id)}
                     className={getClassName(t.id)}>
-                    <Icon name={t.name} className="sign" onClick={(e) => e.stopPropagation()} />
+                    <Icon name={t.name} className="sign" onClick={(e) => manageTag === true ? e.stopPropagation() : e} />
                     <span>{t.name}</span>
                     <Icon name='删除' className={'delete' + (manageTag ? 'Active' : '')} onClick={() => DeleteTag(t.id)} />
                 </TagWrapper>
