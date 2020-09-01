@@ -7,4 +7,4 @@ git add . &&
 git commit -m 'deploy' &&
 git remote add origin git@gitee.com:Freddy-Gong/charge-account-2-websit.git &&
 git push -u origin master -f && 
-cd -
+cd ..
