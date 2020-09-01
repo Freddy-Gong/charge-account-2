@@ -38,16 +38,12 @@ const TagsSection: React.FC<Props> = (prop) => {
     // }, [])
     const getClassName = (tagId: number) => selectedTag === tagId && manageTag === false ? 'selected' : ''
     const showTags = tags.filter((t) => t.category === prop.classify)
-    const stop = (e: React.MouseEvent, id: number) => {
-        e.stopPropagation()
-        DeleteTag(id)
-    }
     return (
         <Tags ref={TagRef}>
             {showTags.map((t) =>
                 <TagWrapper key={t.id} onClick={() => prop.onChange(t.id)}
                     className={getClassName(t.id)}>
-                    <Icon name={t.name} className="sign" />
+                    <Icon name={t.name} className="sign" onClick={(e) => e.stopPropagation()} />
                     <span>{t.name}</span>
                     <Icon name='删除' className={'delete' + (manageTag ? 'Active' : '')} onClick={() => DeleteTag(t.id)} />
                 </TagWrapper>

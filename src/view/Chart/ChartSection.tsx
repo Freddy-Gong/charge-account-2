@@ -19,9 +19,16 @@ const ChartSection: React.FC<Props> = (props) => {
     const container = useRef<HTMLDivElement>(null)
     const { MonthNumber, DayNumber, YearNumber } = Time()
     const XArray: string[] = []
-    for (let i = 0; i < 8; i++) {
-        XArray.push(MonthNumber + '-' + (DayNumber - 7 + i))
+    if (DayNumber < 8) {
+        for (let i = 1; i < 9; i++) {
+            XArray.push(MonthNumber + '-' + i)
+        }
+    } else {
+        for (let i = 0; i < 8; i++) {
+            XArray.push(MonthNumber + '-' + (DayNumber - 7 + i))
+        }
     }
+
     const hash: { [key: string]: Partial<Record>[] } = {}
     XArray.forEach((x) => {
         if (!(x in hash)) {
