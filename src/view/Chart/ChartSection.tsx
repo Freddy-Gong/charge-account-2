@@ -5,6 +5,7 @@ import Time from 'Components/TIme'
 import { useRecords, Record } from 'Hook/useRecords'
 import { defaultDate } from '../NumberPad'
 import Circle from './CircleChart'
+import { useUpdate } from 'Hook/useUpdate'
 
 
 const Chart = styled.div`
@@ -13,14 +14,18 @@ const Chart = styled.div`
 `
 type Props = {
     value: '-' | '+',
-    time: 'day' | 'month'
+    time: 'day' | 'month',
+    monthOrDay: string
 }
 
 const ChartSection: React.FC<Props> = (props) => {
     const { records } = useRecords()
     const container = useRef<HTMLDivElement>(null)
-    const { MonthNumber, DayNumber, YearNumber, MonthAndDay } = Time()
-    const [dayName, setDayName] = useState<string>(MonthAndDay)
+    const { MonthNumber, DayNumber, YearNumber } = Time()
+    const [dayName, setDayName] = useState<string>('')
+    useUpdate(() => {
+        setDayName(props.monthOrDay)
+    }, [props.time])
     const XArray: string[] = []
     let startSet: number = 0
     let endSet: number = 0
@@ -136,7 +141,6 @@ const ChartSection: React.FC<Props> = (props) => {
             myEcharts.on('click', function (params: any) { setDayName(params.name) })
         }
     }, [option])
-
     return (
         <>
             <Chart ref={container} />

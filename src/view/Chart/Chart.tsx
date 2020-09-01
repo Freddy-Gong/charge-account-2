@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
-import Icon from 'Components/Icon'
 import Time from 'Components/TIme'
 import ChartSection from './ChartSection'
 const Header = styled.div`
@@ -44,9 +43,17 @@ const Header = styled.div`
 `
 
 const Chart = () => {
-    const { MonthAndDay } = Time();
+    const { MonthAndDay, Month } = Time();
     const [category, setCategory] = useState<'-' | '+'>('-')
     const [time, setTime] = useState<'day' | 'month'>('day')
+    let monthOrDay: string = '', monthOrDayString: string = ''
+    if (time === 'day') {
+        monthOrDay = MonthAndDay
+        monthOrDayString = MonthAndDay + '日'
+    } else if (time === 'month') {
+        monthOrDay = Month
+        monthOrDayString = Month + '月'
+    }
     const change = () => {
         if (category === '-') {
             setCategory('+')
@@ -61,15 +68,13 @@ const Chart = () => {
                     <span className={time === 'month' ? 'active' : ''} onClick={() => setTime('month')}>月</span>
                     <span className={time === 'day' ? 'active' : ''} onClick={() => setTime('day')}>日</span>
                 </div>
-                <Icon name="RightCopy" />
-                <div>{MonthAndDay}</div>
-                <Icon name="Left" />
+                <div>{monthOrDayString}</div>
                 <select className="category" onChange={change}>
                     <option value='-' >支出</option>
                     <option value='+' >收入</option>
                 </select>
             </Header>
-            <ChartSection value={category} time={time} />
+            <ChartSection value={category} time={time} monthOrDay={monthOrDay} />
         </>
     )
 }

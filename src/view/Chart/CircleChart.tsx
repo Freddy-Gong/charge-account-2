@@ -17,26 +17,27 @@ type Props = {
     category: '-' | '+'
 }
 const Circle: React.FC<Props> = (props) => {
-    const circleData = props.hash[props.value]
     const { tags } = useTags()
-    console.log(tags)
+    const container = useRef<HTMLDivElement>(null)
+    const circleData = props.hash[props.value]
     let incomeHash: { value: number, name: string }[] = [], spendingHash: { value: number, name: string }[] = []
     let hash: { value: number, name: string } = { value: 0, name: '' }
-    circleData.map((cd) => {
-        hash = { value: 0, name: '' }
-        if (cd.category === '-' && cd.account && cd.tagId) {
-            hash.value = cd.account
-            hash.name = tags.filter((t) => t.id === cd.tagId)[0].name
-            spendingHash.push(hash)
-            return spendingHash
-        } else if (cd.category === '+' && cd.account && cd.tagId) {
-            hash.value = cd.account
-            hash.name = tags.filter((t) => t.id === cd.tagId)[0].name
-            incomeHash.push(hash)
-            return incomeHash
-        }
-    })
-    const container = useRef<HTMLDivElement>(null)
+    if (circleData) {
+        circleData.forEach((cd) => {
+            hash = { value: 0, name: '' }
+            if (cd.category === '-' && cd.account && cd.tagId) {
+                hash.value = cd.account
+                hash.name = tags.filter((t) => t.id === cd.tagId)[0].name
+                spendingHash.push(hash)
+                return spendingHash
+            } else if (cd.category === '+' && cd.account && cd.tagId) {
+                hash.value = cd.account
+                hash.name = tags.filter((t) => t.id === cd.tagId)[0].name
+                incomeHash.push(hash)
+                return incomeHash
+            }
+        })
+    }
     let option = {}
     if (props.category === '-') {
         option = {
@@ -81,7 +82,6 @@ const Circle: React.FC<Props> = (props) => {
             ]
         };
     }
-
 
     useEffect(() => {
         if (container.current) {
