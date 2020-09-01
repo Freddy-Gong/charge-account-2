@@ -10,7 +10,7 @@ import { useUpdate } from 'Hook/useUpdate'
 
 const Chart = styled.div`
     width:100%;
-    height:450px;
+    height:300px;
 `
 type Props = {
     value: '-' | '+',
@@ -126,7 +126,7 @@ const ChartSection: React.FC<Props> = (props) => {
                 end: endSet,
             }],
             itemStyle: {
-                color: 'green'
+                color: 'rgb(97,160,168)'
             },
             series: [{
                 type: 'bar',

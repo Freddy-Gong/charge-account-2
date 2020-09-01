@@ -71,7 +71,7 @@ const Chart = () => {
                 <div>{monthOrDayString}</div>
                 <select className="category" onChange={change}>
                     <option value='-' >支出</option>
-                    <option value='+' >收入</option>
+                    <option value='-' >收入</option>
                 </select>
             </Header>
             <ChartSection value={category} time={time} monthOrDay={monthOrDay} />

@@ -10,8 +10,9 @@ export type Record = {
     date: string,
     day: string,
     month: string,
+    creatAt: string,
 }
-type newRecord = Omit<Record, 'date' | 'day' | 'month'>
+type newRecord = Omit<Record, 'date' | 'day' | 'month' | 'creatAt'>
 
 const useRecords = () => {
     const [records, setRecords] = useState<Record[]>([])
@@ -28,7 +29,7 @@ const useRecords = () => {
             alert('请选择标签')
             return false
         }
-        const record = { ...newRecord, date: FullTime, day: Day, month: Month }
+        const record = { ...newRecord, date: FullTime, day: Day, month: Month, creatAt: (new Date()).toISOString() }
         setRecords([...records, record])
         return true
     }

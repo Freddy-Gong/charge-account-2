@@ -6,8 +6,8 @@ import {
   HashRouter as Router,
   Switch,
   Route,
-  Link,
-  Redirect
+  Redirect,
+  NavLink
 } from "react-router-dom";
 import styled from 'styled-components';
 
@@ -18,7 +18,14 @@ const Nav = styled.nav`
     justify-content:center;
     > li{
       padding:5px 10px;
+      > a{
+        font-size:18px;
+        &.selected{
+          color:rgb(97,218,251)
+        }
+      }
     }
+
   }
   
 `
@@ -55,14 +62,14 @@ function Money() {
     <Nav>
       <ul>
         <li>
-          <Link to="/money">记账</Link>
+          <NavLink to="/money" activeClassName="selected">记账</NavLink>
         </li>
         <li>
-          <Link to="/chart">图表</Link>
+          <NavLink to="/chart" activeClassName="selected">图表</NavLink>
         </li>
       </ul>
     </Nav>
-    <MoneyPage />;
+    <MoneyPage />
   </>
 }
 
@@ -71,14 +78,14 @@ function Chart() {
     <Nav>
       <ul>
         <li>
-          <Link to="/money">记账</Link>
+          <NavLink to="/money" activeClassName="selected">记账</NavLink>
         </li>
         <li>
-          <Link to="/chart">图表</Link>
+          <NavLink to="/chart" activeClassName="selected">图表</NavLink>
         </li>
       </ul>
     </Nav>
-    <ChartPage />;
+    <ChartPage />
   </>
 }
 function NumberPad() {

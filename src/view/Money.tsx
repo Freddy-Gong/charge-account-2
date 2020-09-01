@@ -5,7 +5,6 @@ import Icon from 'Components/Icon'
 import { useRecords, Record } from 'Hook/useRecords'
 import useTags from 'Hook/useTags'
 import Time from 'Components/TIme'
-import createKey from 'lib/CreateKey'
 
 const Wrapper = styled.section`
     background:rgb(40,44,52);
@@ -86,6 +85,8 @@ const RecordWrapper = styled.div`
         }
         > span:first-child{
             width:8em;
+            display:flex;
+            justify-content:center;
             white-space:nowrap;
             overflow:hidden;
             text-overflow:ellipsis;
@@ -173,7 +174,7 @@ const Money = () => {
                         </div>
                         {a[1].map((a) => {
                             if (a.category === '-' && tags && tags[0]) {
-                                return <div key={createKey()}>
+                                return <div key={a.creatAt}>
                                     <span >{a.note}</span>
                                     <span >{tags.filter((t) =>
                                         t.id === a.tagId
@@ -185,7 +186,7 @@ const Money = () => {
                                     <span></span>
                                 </div>
                             } else {
-                                return <div key={createKey()}>
+                                return <div key={a.creatAt}>
                                     <span></span>
                                     <span>{parseFloat(a.category + a.account.toString())}</span>
                                     <Icon name={tags.filter((t) =>

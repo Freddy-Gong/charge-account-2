@@ -40,6 +40,9 @@ const Circle: React.FC<Props> = (props) => {
     }
     let option = {}
     if (props.category === '-') {
+        if (spendingHash.length === 0) {
+            spendingHash = [{ value: 100, name: '未消费' }]
+        }
         option = {
             title: {
                 text: props.value + '日消费分布'
@@ -48,11 +51,12 @@ const Circle: React.FC<Props> = (props) => {
                 {
                     name: '访问来源',
                     type: 'pie',
-                    radius: ['50%', '70%'],
+                    center: ['50%', '35%'],
+                    radius: ['30%', '50%'],
                     emphasis: {
                         label: {
                             show: true,
-                            fontSize: '30',
+                            fontSize: '15',
                             fontWeight: 'bold'
                         }
                     },
@@ -61,19 +65,23 @@ const Circle: React.FC<Props> = (props) => {
             ]
         };
     } else if (props.category === '+') {
+        if (incomeHash.length === 0) {
+            incomeHash = [{ value: 100, name: '未收入' }]
+        }
         option = {
             title: {
-                text: props.value + '日消费分布'
+                text: props.value + '日收入分布'
             },
             series: [
                 {
                     name: '访问来源',
                     type: 'pie',
-                    radius: ['50%', '70%'],
+                    center: ['50%', '35%'],
+                    radius: ['30%', '50%'],
                     emphasis: {
                         label: {
                             show: true,
-                            fontSize: '30',
+                            fontSize: '15',
                             fontWeight: 'bold'
                         }
                     },
