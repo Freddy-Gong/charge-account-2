@@ -43,7 +43,6 @@ const Header = styled.div`
     }
 `
 
-
 const Chart = () => {
     const { MonthAndDay } = Time();
     const [category, setCategory] = useState<'-' | '+'>('-')

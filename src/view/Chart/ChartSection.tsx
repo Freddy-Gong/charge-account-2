@@ -1,14 +1,15 @@
-import React, { useRef, useEffect } from 'react'
+import React, { useRef, useEffect, useState } from 'react'
 import styled from 'styled-components'
 import echarts from 'echarts'
 import Time from 'Components/TIme'
 import { useRecords, Record } from 'Hook/useRecords'
 import { defaultDate } from '../NumberPad'
+import Circle from './CircleChart'
 
 
 const Chart = styled.div`
     width:100%;
-    height:400px;
+    height:450px;
 `
 type Props = {
     value: '-' | '+',
@@ -18,7 +19,8 @@ type Props = {
 const ChartSection: React.FC<Props> = (props) => {
     const { records } = useRecords()
     const container = useRef<HTMLDivElement>(null)
-    const { MonthNumber, DayNumber, YearNumber } = Time()
+    const { MonthNumber, DayNumber, YearNumber, MonthAndDay } = Time()
+    const [dayName, setDayName] = useState<string>(MonthAndDay)
     const XArray: string[] = []
     let startSet: number = 0
     let endSet: number = 0
@@ -69,7 +71,6 @@ const ChartSection: React.FC<Props> = (props) => {
     let spending: number[], income: number[]
     const Spending: number[] = [], Income: number[] = []
     const ChartArray = Object.entries(hash)
-    console.log(ChartArray)
     ChartArray.map((ca) => {
         spending = [0]
         income = [0]
@@ -132,11 +133,15 @@ const ChartSection: React.FC<Props> = (props) => {
         if (container.current) {
             const myEcharts = echarts.init(container.current)
             myEcharts.setOption(option)
+            myEcharts.on('click', function (params: any) { setDayName(params.name) })
         }
     }, [option])
 
     return (
-        <Chart ref={container} />
+        <>
+            <Chart ref={container} />
+            <Circle value={dayName} hash={hash} category={props.value} />
+        </>
     )
 }
 export default ChartSection
