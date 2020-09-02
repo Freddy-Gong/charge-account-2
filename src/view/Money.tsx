@@ -7,15 +7,15 @@ import useTags from 'Hook/useTags'
 import Time from 'Components/TIme'
 
 const Wrapper = styled.section`
-    background:rgb(40,44,52);
-    color:rgb(97,218,251);
+    background:rgb(97,218,251);
+    color:white;
     height:20%;
     > header {
         display:flex;
         justify-content:space-between;
         padding:10px 10px;
         > .in{
-            color:rgb(40,44,52);
+            color:rgb(97,218,251);
         }
     }
     > main{

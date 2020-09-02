@@ -16,6 +16,7 @@ const Nav = styled.nav`
   > ul{
     display:flex;
     justify-content:center;
+    margin-bottom:0px;
     > li{
       padding:5px 10px;
       > a{
