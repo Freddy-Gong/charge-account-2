@@ -5,7 +5,6 @@ import Time from 'Components/TIme'
 import { useRecords, Record } from 'Hook/useRecords'
 import { defaultDate } from '../NumberPad'
 import Circle from './CircleChart'
-import { useUpdate } from 'Hook/useUpdate'
 
 
 const Chart = styled.div`
@@ -26,7 +25,7 @@ const ChartSection: React.FC<Props> = (props) => {
     console.log(props.time)
     useEffect(() => {
         setDayName(props.monthOrDay)
-    }, [props.time])
+    }, [props.time, props.monthOrDay])
     const XArray: string[] = []
     let startSet: number = 0
     let endSet: number = 0

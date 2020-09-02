@@ -133,7 +133,6 @@ const Money = () => {
         recordWrapper.style.top = top + height + 'px'
         recordWrapper.style.height = document.body.clientHeight - top - height + 'px'
     }
-
     return (
         <>
             <Wrapper>
@@ -160,7 +159,7 @@ const Money = () => {
                 {array.map((a) =>
                     <>
                         <div key={a[0]}>
-                            <span className="day">{a[1][0].day + '日'}</span>
+                            <span className="day">{a[1][0].day + '号'}</span>
                             <div className='line'></div>
                             <span>{a[1].reduce((sum, item) => {
                                 const result = parseFloat(item.category + item.account.toString())

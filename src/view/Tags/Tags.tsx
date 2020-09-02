@@ -10,7 +10,8 @@ const Tags = styled.div`
     display:flex;
     flex-wrap:wrap;
     height:200px;
-    overflow:scroll;
+    overflow-x:hidden;
+    overflow-y:auto;
     > .selected{
         > .sign{
             border:1px solid black;
