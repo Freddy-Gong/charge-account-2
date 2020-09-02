@@ -23,7 +23,8 @@ const ChartSection: React.FC<Props> = (props) => {
     const container = useRef<HTMLDivElement>(null)
     const { MonthNumber, DayNumber, YearNumber } = Time()
     const [dayName, setDayName] = useState<string>('')
-    useUpdate(() => {
+    console.log(props.time)
+    useEffect(() => {
         setDayName(props.monthOrDay)
     }, [props.time])
     const XArray: string[] = []

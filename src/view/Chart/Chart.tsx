@@ -34,7 +34,6 @@ const Header = styled.div`
     .category{
         border:2px solid rgb(97,218,251);
         width:4em;
-        padding:3px 0;
         font-size:16px;
         color:rgb(97,218,251);
         border-radius:5px;

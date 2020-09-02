@@ -70,10 +70,6 @@ const RecordWrapper = styled.div`
             background:rgb(40,44,52);
             border-radius:5px;
         }
-        .day{
-            display:flex;
-            justify-content:flex-end;
-        }
         > span{
             padding:10px;
             width:4em;
@@ -86,7 +82,7 @@ const RecordWrapper = styled.div`
         > span:first-child{
             width:8em;
             display:flex;
-            justify-content:center;
+            justify-content:flex-end;
             white-space:nowrap;
             overflow:hidden;
             text-overflow:ellipsis;
@@ -98,7 +94,6 @@ const RecordWrapper = styled.div`
             text-overflow:ellipsis;
         }
     }
-    
 `
 
 
