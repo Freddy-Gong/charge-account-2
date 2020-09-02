@@ -9,6 +9,7 @@ const Header = styled.div`
     justify-content:space-between;
     align-items:center;
     padding:5px 0;
+    font-size:16px;
     > div{
         display:flex;
         flex-direction:row;
@@ -26,6 +27,7 @@ const Header = styled.div`
         border:1px solid rgb(217,217,217);
         border-radius:2px;
         position:relative;
+        margin-left:2px;
         > span{
             color:rgb(217,217,217);
         }
@@ -40,6 +42,7 @@ const Header = styled.div`
     .select{
         width:5em;
         color:rgb(97,218,251);
+        margin-right:2px;
         > span{
             > span{
                 position:relative;
