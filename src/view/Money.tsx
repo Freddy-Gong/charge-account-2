@@ -7,7 +7,7 @@ import useTags from 'Hook/useTags'
 import Time from 'Components/TIme'
 
 const Wrapper = styled.section`
-    background:rgb(97,218,251);
+    background:#1296db;
     color:white;
     height:20%;
     > header {
@@ -15,7 +15,7 @@ const Wrapper = styled.section`
         justify-content:space-between;
         padding:10px 10px;
         > .in{
-            color:rgb(97,218,251);
+            color:#1296db;
         }
     }
     > main{
@@ -40,12 +40,12 @@ const IconWrapper = styled.div`
         position:absolute;
         border-radius:60px;
         > a{
-            color:rgb(97,218,251);
+            color:#1296db;
             display:flex;
             justify-content;center;
             align-item:center;
             flex-direction:column;
-            border:2px solid rgb(97,218,251);
+            border:2px solid #1296db;
             margin:10px;
             border-radius:60px;
             padding:10px 24px;

@@ -22,7 +22,7 @@ const Nav = styled.nav`
       > a{
         font-size:18px;
         &.selected{
-          color:rgb(97,218,251)
+          color:#1296db
         }
       }
     }

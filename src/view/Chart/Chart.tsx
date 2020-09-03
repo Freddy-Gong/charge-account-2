@@ -32,7 +32,7 @@ const Header = styled.div`
             color:rgb(217,217,217);
         }
         > .active{
-            color:rgb(97,218,251);
+            color:#1296db;
         }
         > .line{
             background:rgb(217,217,217);
@@ -41,7 +41,7 @@ const Header = styled.div`
     }
     .select{
         width:5em;
-        color:rgb(97,218,251);
+        color:#1296db;
         margin-right:2px;
         > span{
             > span{

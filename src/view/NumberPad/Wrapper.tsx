@@ -5,13 +5,13 @@ const Wrapper = styled.div`
     .note{
         grid-area:note;
         font-size:20px;
-        border:1px solid rgb(97,218,251);
+        border:1px solid #1296db;
         border-radius:15px;
         margin:8px;
         display:flex;
         justify-content:center;
         align-items:center;
-        color:rgb(97,218,251);
+        color:#1296db;
     }
     .result{
         grid-area: result;
@@ -62,7 +62,7 @@ const Wrapper = styled.div`
             height:1em;
         }
         &:active{
-            fill:rgb(97,218,251);
+            fill:#1296db;
         }
     }
     .add{
@@ -79,7 +79,7 @@ const Wrapper = styled.div`
     }
     .OK{
         grid-area:OK;
-        background:rgb(97,218,251);
+        background:#1296db;
     }
     .dot{
         grid-area:dot;
@@ -102,14 +102,14 @@ const Wrapper = styled.div`
     > button {
         margin: 8px;
         padding: 0;
-        border:1px solid rgb(97,218,251);
+        border:1px solid #1296db;
         display: block;
         outline: none;
         border-radius: 37px;
         font-size: 24px;
         background:white;
         &:active{
-            color:rgb(97,218,251);
+            color:#1296db;
         }
     }        
 }   

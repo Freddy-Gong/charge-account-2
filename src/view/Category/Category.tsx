@@ -16,13 +16,13 @@ const CategoryWrapper = styled.div`
         position:relative;
         transition:font-size 0.2s;
         &.active{
-            color:rgb(97,218,251);
+            color:#1296db;
             font-size:20px;
         }
         &.active::after{
             content:'';
             display:block;
-            background:rgb(97,218,251);
+            background:#1296db;
             position:absolute;
             bottom:0;
             width:100%;

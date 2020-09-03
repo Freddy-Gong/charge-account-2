@@ -62,7 +62,7 @@ const Circle: React.FC<Props> = (props) => {
                     },
                     data: spendingHash
                 }
-            ]
+            ],
         };
     } else if (props.category === '+') {
         if (incomeHash.length === 0) {
@@ -70,7 +70,11 @@ const Circle: React.FC<Props> = (props) => {
         }
         option = {
             title: {
-                text: props.value + '日收入分布'
+                text: props.value + '日收入分布',
+                textStyle: {
+                    fontSize: 30,
+                    color: "rgba(86, 14, 14, 1)"
+                },
             },
             series: [
                 {

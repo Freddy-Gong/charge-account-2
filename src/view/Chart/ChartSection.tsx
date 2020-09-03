@@ -126,7 +126,7 @@ const ChartSection: React.FC<Props> = (props) => {
                 end: endSet,
             }],
             itemStyle: {
-                color: 'rgb(97,160,168)'
+                color: 'rgb(51,75,92)'
             },
             series: [{
                 type: 'bar',
