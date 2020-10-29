@@ -40,7 +40,6 @@ const Circle: React.FC<Props> = (props) => {
         })
     }
     const array = Object.entries(hash)
-    console.log(array)
     array.forEach((a) => {
         const inOrOutHash = { value: a[1], name: a[0] }
         todayMoney.push(inOrOutHash)

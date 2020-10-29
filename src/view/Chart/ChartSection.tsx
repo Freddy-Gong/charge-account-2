@@ -22,7 +22,6 @@ const ChartSection: React.FC<Props> = (props) => {
     const container = useRef<HTMLDivElement>(null)
     const { MonthNumber, DayNumber, YearNumber } = Time()
     const [dayName, setDayName] = useState<string>('')
-    console.log(props.time)
     useEffect(() => {
         setDayName(props.monthOrDay)
     }, [props.time, props.monthOrDay])

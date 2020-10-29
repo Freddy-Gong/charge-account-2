@@ -56,44 +56,44 @@ const IconWrapper = styled.div`
     }
 `
 const RecordWrapper = styled.div`
-    position:absolute;
-    width:100%;
-    overflow:scroll;
-    > div{
-        display:flex;
-        justify-content:center;
-        align-items:center;
-        padding:5px 0px;
-        > .line{
-            width:5px;
-            height:5px;
-            background:rgb(40,44,52);
-            border-radius:5px;
-        }
-        > span{
-            padding:10px;
-            width:4em;
-            height:100%
-        }
-        > span:nth-child(2){
+        position:absolute;
+        width:100%;
+        overflow:scroll;
+        > div{
             display:flex;
-            justify-content:flex-end;
+            justify-content:center;
+            align-items:center;
+            padding:5px 0px;
+            > .line{
+                width:5px;
+                height:5px;
+                background:rgb(40,44,52);
+                border-radius:5px;
+            }
+            > span{
+                padding:10px;
+                width:4em;
+                height:100%
+            }
+            > span:nth-child(2){
+                display:flex;
+                justify-content:flex-end;
+            }
+            > span:first-child{
+                width:8em;
+                display:flex;
+                justify-content:flex-end;
+                white-space:nowrap;
+                overflow:hidden;
+                text-overflow:ellipsis;
+            }
+            > span:last-child{
+                width:8em;
+                white-space:nowrap;
+                overflow:hidden;
+                text-overflow:ellipsis;
+            }
         }
-        > span:first-child{
-            width:8em;
-            display:flex;
-            justify-content:flex-end;
-            white-space:nowrap;
-            overflow:hidden;
-            text-overflow:ellipsis;
-        }
-        > span:last-child{
-            width:8em;
-            white-space:nowrap;
-            overflow:hidden;
-            text-overflow:ellipsis;
-        }
-    }
 `
 
 
