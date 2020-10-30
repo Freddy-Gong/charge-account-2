@@ -121,7 +121,7 @@ const Money = () => {
     const incomeMoney = income.reduce((sum, item) => { return sum + item.account }, 0)
     const spendingMoney = spending.reduce((sum, item) => { return sum + item.account }, 0)
     const restMoney = incomeMoney - spendingMoney
-    const { YearAndMonth } = Time()
+    const { YearAndMonth, Month } = Time()
     const pen = document.getElementById('pen')
     const recordWrapper = document.getElementById('RecordWrapper')
     let top, height = 0
@@ -159,7 +159,7 @@ const Money = () => {
                 {array.map((a) =>
                     <>
                         <div key={a[0]}>
-                            <span className="day">{a[1][0].day + '号'}</span>
+                            <span className="day">{a[1][0].month !== Month ? a[1][0].month + '月' + a[1][0].day + '号' : a[1][0].day + '号'}</span>
                             <div className='line'></div>
                             <span>{a[1].reduce((sum, item) => {
                                 const result = parseFloat(item.category + item.account.toString())
