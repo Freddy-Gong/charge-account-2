@@ -24,13 +24,7 @@ const Circle: React.FC<Props> = (props) => {
     const hash: { [key: string]: number } = {}
     if (circleData) {
         circleData.forEach((cd) => {
-            if (cd.category === '-' && cd.account && cd.tagId) {
-                const key = tags.filter((t) => t.id === cd.tagId)[0].name
-                if (!(key in hash)) {
-                    hash[key] = 0
-                }
-                hash[key] += cd.account
-            } else if (cd.category === '+' && cd.account && cd.tagId) {
+            if (cd.category === props.category && cd.account && cd.tagId) {
                 const key = tags.filter((t) => t.id === cd.tagId)[0].name
                 if (!(key in hash)) {
                     hash[key] = 0

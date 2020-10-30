@@ -17,7 +17,7 @@ type newRecord = Omit<Record, 'date' | 'day' | 'month' | 'creatAt'>
 const useRecords = () => {
     const [records, setRecords] = useState<Record[]>([])
     useEffect(() => {
-        setRecords(JSON.parse(window.localStorage.getItem('records') || '[{"tagId":2,"category":"-","account":20,"note":"","date":"2020-9-2","day":"2","month":"9","creatAt":"2020-09-02T06:45:43.209Z"},{"tagId":3,"category":"-","account":60,"note":"","date":"2020-9-2","day":"2","month":"9","creatAt":"2020-09-02T06:45:49.662Z"},{"tagId":7,"category":"-","account":100,"note":"","date":"2020-9-2","day":"2","month":"9","creatAt":"2020-09-02T06:46:06.925Z"},{"tagId":10,"category":"+","account":800,"note":"终于发奖金了","date":"2020-9-2","day":"2","month":"9","creatAt":"2020-09-02T06:52:38.412Z"},{"tagId":2,"category":"-","account":50,"note":"","date":"2020-9-1","day":"1","month":"9","creatAt":"2020-09-02T06:52:51.728Z"},{"tagId":2,"category":"-","account":80,"note":"送人去医院","date":"2020-9-1","day":"1","month":"9","creatAt":"2020-09-02T06:53:07.280Z"}]'))
+        setRecords(JSON.parse(window.localStorage.getItem('records') || '[{"tagId":2,"category":"-","account":20,"note":"","date":"2020-10-2","day":"2","month":"10","creatAt":"2020-09-02T06:45:43.209Z"},{"tagId":3,"category":"-","account":60,"note":"","date":"2020-09-2","day":"2","month":"9","creatAt":"2020-09-02T06:45:49.662Z"},{"tagId":7,"category":"-","account":100,"note":"","date":"2020-09-2","day":"2","month":"9","creatAt":"2020-09-02T06:46:06.925Z"},{"tagId":10,"category":"+","account":800,"note":"终于发奖金了","date":"2020-10-2","day":"2","month":"9","creatAt":"2020-09-02T06:52:38.412Z"},{"tagId":2,"category":"-","account":50,"note":"","date":"2020-09-1","day":"1","month":"9","creatAt":"2020-09-02T06:52:51.728Z"},{"tagId":2,"category":"-","account":80,"note":"送人去医院","date":"2020-09-1","day":"1","month":"9","creatAt":"2020-09-02T06:53:07.280Z"}]'))
     }, [])
 
     const { FullTime, Day, Month } = Time()
@@ -47,14 +47,12 @@ const useRecords = () => {
         }
         hash[key].push(r)
     })
-    console.log(hash)
     const array = Object.entries(hash).sort((a, b) => {
         if (a[0] === b[0]) return 0
         if (a[0] > b[0]) return -1
         if (a[0] < b[0]) return 1
         return 0
     })
-    console.log(array)
     return {
         records,
         addRecords,

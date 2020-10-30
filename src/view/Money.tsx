@@ -156,7 +156,7 @@ const Money = () => {
                 </div>
             </IconWrapper>
             <RecordWrapper id="RecordWrapper">
-                {array.map((a) =>
+                {array && array.map((a) =>
                     <>
                         <div key={a[0]}>
                             <span className="day">{a[1][0].month !== Month ? a[1][0].month + '月' + a[1][0].day + '号' : a[1][0].day + '号'}</span>
@@ -168,6 +168,7 @@ const Money = () => {
                         </div>
                         {a[1].map((a) => {
                             if (a.category === '-' && tags && tags[0]) {
+
                                 return <div key={a.creatAt}>
                                     <span >{a.note}</span>
                                     <span >{tags.filter((t) =>

@@ -6,7 +6,6 @@ const Time = () => {
     const Month = (date.getMonth() + 1).toString()
     const StanderMonth = date.getMonth() + 1 < 10 ? '0' + Month : Month
     const Day = date.getDate().toString()
-    console.log(StanderMonth)
     const StanderDay = date.getDate() < 10 ? '0' + Day : Day
     const DayNumber = date.getDate()
     const MonthNumber = date.getMonth() + 1

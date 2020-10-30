@@ -20,7 +20,7 @@ type Props = {
 const ChartSection: React.FC<Props> = (props) => {
     const { records } = useRecords()
     const container = useRef<HTMLDivElement>(null)
-    const { MonthNumber, DayNumber, YearNumber } = Time()
+    const { MonthNumber, YearNumber } = Time()
     const [dayName, setDayName] = useState<string>('')
     useEffect(() => {
         setDayName(props.monthOrDay)
@@ -28,16 +28,17 @@ const ChartSection: React.FC<Props> = (props) => {
     const XArray: string[] = []
     let startSet: number = 0
     let endSet: number = 0
+    const day = parseInt(dayName.substr(dayName.indexOf('-') + 1))
     const hash: { [key: string]: Partial<Record>[] } = {}
     if (props.time === 'day') {
         for (let i = 1; i < 31; i++) {
             XArray.push(MonthNumber + '-' + i)
         }
-        if (DayNumber < 8) {
+        if (day < 8) {
             startSet = 0
             endSet = 20
         } else {
-            endSet = DayNumber / 30 * 100
+            endSet = day / 30 * 100
             startSet = endSet - 20
         }
         XArray.forEach((x) => {
