@@ -13,7 +13,12 @@ const Time = () => {
 
     const FullTime = Year + '-' + StanderMonth + '-' + StanderDay
     const YearAndMonth = Year + '-' + Month
-    const MonthAndDay = Month + '-' + Day
+    let MonthAndDay
+    if (parseInt(Day) < 10) {
+        MonthAndDay = Month + '-0' + Day
+    } else {
+        MonthAndDay = Month + '-' + Day
+    }
     return { Year, Month, MonthNumber, Day, DayNumber, FullTime, YearAndMonth, MonthAndDay, YearNumber, StanderMonth, StanderDay }
 }
 export default Time

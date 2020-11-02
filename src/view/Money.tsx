@@ -57,8 +57,8 @@ const IconWrapper = styled.div`
 `
 const RecordWrapper = styled.div`
         position:absolute;
-        width:100%;
         overflow:scroll;
+        width:100%;
         > div{
             display:flex;
             justify-content:center;

@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import Time from 'Components/TIme'
 import ChartSection from './ChartSection'
 import { Select } from 'antd'
+import Icon from 'Components/Icon'
 
 const Header = styled.div`
     display:flex;
@@ -10,6 +11,9 @@ const Header = styled.div`
     align-items:center;
     padding:5px 0;
     font-size:16px;
+    > .date{
+        margin:0 -32px;
+    }
     > div{
         display:flex;
         flex-direction:row;
@@ -62,13 +66,38 @@ const Chart = () => {
     const { Option } = Select
     const [category, setCategory] = useState<'-' | '+'>('-')
     const [time, setTime] = useState<'day' | 'month'>('day')
-    let monthOrDay: string = '', monthOrDayString: string = ''
-    if (time === 'day') {
-        monthOrDay = MonthAndDay
-        monthOrDayString = MonthAndDay + '日'
-    } else if (time === 'month') {
-        monthOrDay = Month
-        monthOrDayString = Month + '月'
+    const [monthAndDay, setMonthAndDay] = useState<string>(MonthAndDay)
+    const index = monthAndDay.indexOf('-')
+    const [CurrentMonth, setCurrentMonth] = useState<string>(Month)
+    const DownDate = () => {
+        if (time === 'month') {
+            setCurrentMonth((parseInt(CurrentMonth) - 1).toString())
+        } else {
+            const day = parseInt(monthAndDay.substr(index + 1)) - 1
+            if (day === 0) {
+                setCurrentMonth((parseInt(CurrentMonth) - 1).toString())
+                setMonthAndDay(CurrentMonth + '-' + 30)
+            } else {
+                setMonthAndDay(CurrentMonth + '-' + day)
+            }
+            console.log(CurrentMonth)
+            console.log(monthAndDay)
+
+        }
+    }
+    const UpDate = () => {
+        if (time === 'month') {
+            setCurrentMonth((parseInt(CurrentMonth) + 1).toString())
+        } else {
+            const day = parseInt(monthAndDay.substr(index + 1)) + 1
+            if (day === 30) {
+                setCurrentMonth((parseInt(CurrentMonth) + 1).toString())
+                setMonthAndDay(CurrentMonth + '-' + 1)
+            } else {
+                setMonthAndDay(CurrentMonth + '-' + day)
+            }
+
+        }
     }
     const change = () => {
         if (category === '-') {
@@ -85,13 +114,15 @@ const Chart = () => {
                     <span className='line'></span>
                     <span className={time === 'day' ? 'active' : ''} onClick={() => setTime('day')}>日</span>
                 </div>
-                <div>{monthOrDayString}</div>
+                <Icon name='RightCopy' onClick={DownDate} />
+                <div className='date'>{time === 'month' ? CurrentMonth + '月' : monthAndDay + '日'}</div>
+                <Icon name='Left' onClick={UpDate} />
                 <Select defaultValue='-' className="select" onChange={change}>
                     <Option value='-'>支出</Option>
                     <Option value='+'>收入</Option>
                 </Select>
             </Header>
-            <ChartSection value={category} time={time} monthOrDay={monthOrDay} />
+            <ChartSection value={category} time={time} monthOrDay={time === 'month' ? CurrentMonth : monthAndDay} />
         </>
     )
 }
