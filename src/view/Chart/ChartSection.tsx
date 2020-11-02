@@ -21,7 +21,7 @@ type Props = {
 const ChartSection: React.FC<Props> = (props) => {
     const { records } = useRecords()
     const container = useRef<HTMLDivElement>(null)
-    const { MonthNumber, YearNumber } = Time()
+    const { YearNumber } = Time()
     const [dayName, setDayName] = useState<string>(props.monthOrDay)
     useEffect(() => {
         setDayName(props.monthOrDay)

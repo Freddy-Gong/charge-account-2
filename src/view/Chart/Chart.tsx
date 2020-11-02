@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import Time from 'Components/TIme'
 import ChartSection from './ChartSection'
@@ -69,19 +69,14 @@ const Chart = () => {
     const [monthAndDay, setMonthAndDay] = useState<string>(MonthAndDay)
     const index = monthAndDay.indexOf('-')
     const [CurrentMonth, setCurrentMonth] = useState<string>(Month)
+    const [day, setDay] = useState<number>(parseInt(monthAndDay.substr(index + 1)))
     const DownDate = () => {
         if (time === 'month') {
             setCurrentMonth((parseInt(CurrentMonth) - 1).toString())
         } else {
-            const day = parseInt(monthAndDay.substr(index + 1)) - 1
-            if (day < 10 && day > 0) {
-                setMonthAndDay(CurrentMonth + '-0' + day)
-
-            } else if (day === 0) {
+            setDay(day - 1)
+            if (day === 1) {//下次变化才会渲染
                 setCurrentMonth((parseInt(CurrentMonth) - 1).toString())
-                setMonthAndDay(CurrentMonth + '-' + 30)
-            } else {
-                setMonthAndDay(CurrentMonth + '-' + day)
             }
         }
     }
@@ -89,18 +84,25 @@ const Chart = () => {
         if (time === 'month') {
             setCurrentMonth((parseInt(CurrentMonth) + 1).toString())
         } else {
-            const day = parseInt(monthAndDay.substr(index + 1)) + 1
-            if (day < 10) {
-                setMonthAndDay(CurrentMonth + '-0' + day)
-            } else if (day === 30) {
-                setCurrentMonth((parseInt(CurrentMonth) - 1).toString())
-                setMonthAndDay(CurrentMonth + '-' + 30)
-            } else {
-                setMonthAndDay(CurrentMonth + '-' + day)
+            setDay(day + 1)
+            if (day === 31) {
+                setCurrentMonth((parseInt(CurrentMonth) + 1).toString())
             }
-
         }
     }
+    useEffect(() => {
+        if (day < 10 && day > 0) {
+            setMonthAndDay(CurrentMonth + '-0' + day)
+        } else if (day === 0) {
+            setDay(31)
+            setMonthAndDay(CurrentMonth + '-' + 31)
+        } else if (day === 32) {
+            setDay(1)
+            setMonthAndDay(CurrentMonth + '-0' + 1)
+        } else {
+            setMonthAndDay(CurrentMonth + '-' + day)
+        }
+    }, [CurrentMonth, day])
     const change = () => {
         if (category === '-') {
             setCategory('+')
