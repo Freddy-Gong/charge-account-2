@@ -14,7 +14,8 @@ const Chart = styled.div`
 type Props = {
     value: '-' | '+',
     time: 'day' | 'month',
-    monthOrDay: string
+    monthOrDay: string,
+    currentMonth: string,
 }
 
 const ChartSection: React.FC<Props> = (props) => {
@@ -32,7 +33,11 @@ const ChartSection: React.FC<Props> = (props) => {
     const hash: { [key: string]: Partial<Record>[] } = {}
     if (props.time === 'day') {
         for (let i = 1; i < 31; i++) {
-            XArray.push(MonthNumber + '-0' + i)
+            if (i < 10) {
+                XArray.push(props.currentMonth + '-0' + i)
+            } else {
+                XArray.push(props.currentMonth + '-' + i)
+            }
         }
         if (day < 8) {
             startSet = 0
@@ -46,20 +51,27 @@ const ChartSection: React.FC<Props> = (props) => {
                 hash[x] = [defaultDate]
             }
             records.forEach((r) => {
-                if (YearNumber + '-' + x === r.date) {
-                    hash[x].push(r)
+                if (parseInt(x) < 10) {
+                    if (YearNumber + '-0' + x === r.date) {
+                        hash[x].push(r)
+                    }
+                } else {
+                    if (YearNumber + '-' + x === r.date) {
+                        hash[x].push(r)
+                    }
                 }
+
             })
         })
     } else if (props.time === 'month') {
         for (let i = 1; i < 13; i++) {
             XArray.push(i.toString())
         }
-        if (MonthNumber < 8) {
+        if (parseInt(props.currentMonth) < 8) {
             startSet = 0
             endSet = 50
         } else {
-            endSet = MonthNumber / 12 * 100
+            endSet = parseInt(props.currentMonth) / 12 * 100
             startSet = endSet - 50
         }
         XArray.forEach((x) => {

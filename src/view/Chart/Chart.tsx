@@ -74,15 +74,15 @@ const Chart = () => {
             setCurrentMonth((parseInt(CurrentMonth) - 1).toString())
         } else {
             const day = parseInt(monthAndDay.substr(index + 1)) - 1
-            if (day === 0) {
+            if (day < 10 && day > 0) {
+                setMonthAndDay(CurrentMonth + '-0' + day)
+
+            } else if (day === 0) {
                 setCurrentMonth((parseInt(CurrentMonth) - 1).toString())
                 setMonthAndDay(CurrentMonth + '-' + 30)
             } else {
                 setMonthAndDay(CurrentMonth + '-' + day)
             }
-            console.log(CurrentMonth)
-            console.log(monthAndDay)
-
         }
     }
     const UpDate = () => {
@@ -90,9 +90,11 @@ const Chart = () => {
             setCurrentMonth((parseInt(CurrentMonth) + 1).toString())
         } else {
             const day = parseInt(monthAndDay.substr(index + 1)) + 1
-            if (day === 30) {
-                setCurrentMonth((parseInt(CurrentMonth) + 1).toString())
-                setMonthAndDay(CurrentMonth + '-' + 1)
+            if (day < 10) {
+                setMonthAndDay(CurrentMonth + '-0' + day)
+            } else if (day === 30) {
+                setCurrentMonth((parseInt(CurrentMonth) - 1).toString())
+                setMonthAndDay(CurrentMonth + '-' + 30)
             } else {
                 setMonthAndDay(CurrentMonth + '-' + day)
             }
@@ -115,14 +117,14 @@ const Chart = () => {
                     <span className={time === 'day' ? 'active' : ''} onClick={() => setTime('day')}>日</span>
                 </div>
                 <Icon name='RightCopy' onClick={DownDate} />
-                <div className='date'>{time === 'month' ? CurrentMonth + '月' : monthAndDay + '日'}</div>
+                <div className='date'>{time === 'month' ? CurrentMonth + '月' : monthAndDay}</div>
                 <Icon name='Left' onClick={UpDate} />
                 <Select defaultValue='-' className="select" onChange={change}>
                     <Option value='-'>支出</Option>
                     <Option value='+'>收入</Option>
                 </Select>
             </Header>
-            <ChartSection value={category} time={time} monthOrDay={time === 'month' ? CurrentMonth : monthAndDay} />
+            <ChartSection value={category} time={time} monthOrDay={time === 'month' ? CurrentMonth : monthAndDay} currentMonth={CurrentMonth} />
         </>
     )
 }
