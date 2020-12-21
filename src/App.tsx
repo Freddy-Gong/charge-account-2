@@ -31,6 +31,10 @@ const Nav = styled.nav`
   
 `
 
+const width = document.body.clientWidth
+if (width > 500) {
+  alert('为不影响该应用的使用，请用手机打开本应用。')
+}
 function App() {
   return (
     <>
