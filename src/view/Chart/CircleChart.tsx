@@ -45,7 +45,7 @@ const Circle: React.FC<Props> = (props) => {
         }
         option = {
             title: {
-                text: props.value + '日消费分布',
+                text: props.value.length > 2 ? props.value + '日消费分布' : props.value + '月消费分布',
                 textStyle: {
                     fontSize: 15,
                     color: "black",
@@ -76,7 +76,7 @@ const Circle: React.FC<Props> = (props) => {
         }
         option = {
             title: {
-                text: props.value + '日收入分布',
+                text: props.value.length > 2 ? props.value + '日收入分布' : props.value + '月收入分布',
 
             },
             series: [

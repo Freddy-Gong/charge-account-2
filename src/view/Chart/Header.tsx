@@ -43,6 +43,7 @@ const HeaderWrapper = styled.div`
         color:#1296db;
         margin-right:2px;
         > span{
+            padding:0 5px;
             > span{
                 position:relative;
                 > svg{

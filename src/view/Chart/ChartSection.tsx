@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useState } from 'react'
+import React, { useRef, useEffect } from 'react'
 import styled from 'styled-components'
 import echarts from 'echarts'
 import Time from 'Components/TIme'
@@ -16,20 +16,21 @@ type Props = {
     time: 'day' | 'month',
     monthOrDay: string,
     currentMonth: string,
+    onChange: (MonthOrDay: string) => void,
 }
 
 const ChartSection: React.FC<Props> = (props) => {
     const { records } = useRecords()
     const container = useRef<HTMLDivElement>(null)
     const { YearNumber } = Time()
-    const [dayName, setDayName] = useState<string>(props.monthOrDay)
-    useEffect(() => {
-        setDayName(props.monthOrDay)
-    }, [props.time, props.monthOrDay])
+    // const [dayName, setDayName] = useState<string>(props.monthOrDay)
+    // useEffect(() => {
+    //     setDayName(props.monthOrDay)
+    // }, [props.time, props.monthOrDay])
     const XArray: string[] = []
     let startSet: number = 0
     let endSet: number = 0
-    const day = parseInt(dayName.substr(dayName.indexOf('-') + 1))
+    const day = parseInt(props.monthOrDay.substr(props.monthOrDay.indexOf('-') + 1))
     const hash: { [key: string]: Partial<Record>[] } = {}
     if (props.time === 'day') {
         for (let i = 1; i < 31; i++) {
@@ -151,13 +152,13 @@ const ChartSection: React.FC<Props> = (props) => {
         if (container.current) {
             const myEcharts = echarts.init(container.current)
             myEcharts.setOption(option)
-            myEcharts.on('click', function (params: any) { setDayName(params.name) })
+            myEcharts.on('click', function (params: any) { props.onChange(params.name) })
         }
-    }, [option])
+    }, [props, option])
     return (
         <>
             <Chart ref={container} />
-            <Circle value={dayName} hash={hash} category={props.value} />
+            <Circle value={props.monthOrDay} hash={hash} category={props.value} />
         </>
     )
 }

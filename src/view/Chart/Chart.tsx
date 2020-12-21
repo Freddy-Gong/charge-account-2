@@ -32,6 +32,7 @@ const Header = styled.div`
         border-radius:2px;
         position:relative;
         margin-left:2px;
+        margin-right:-10px;
         > span{
             color:rgb(217,217,217);
         }
@@ -70,23 +71,37 @@ const Chart = () => {
     const index = monthAndDay.indexOf('-')
     const [CurrentMonth, setCurrentMonth] = useState<string>(Month)
     const [day, setDay] = useState<number>(parseInt(monthAndDay.substr(index + 1)))
+    const onChangeMonthAndDay = (MonthAndDay: string) => {
+        const index2 = MonthAndDay.indexOf('-')
+        if (index2 === -1) {
+            setCurrentMonth(MonthAndDay)
+        } else {
+            setCurrentMonth(MonthAndDay.substr(0, index2))
+            setDay(parseInt(MonthAndDay.substr(index2 + 1)))
+
+        }
+    }
     const DownDate = () => {
         if (time === 'month') {
-            setCurrentMonth((parseInt(CurrentMonth) - 1).toString())
+            parseInt(CurrentMonth) - 1 === 0 ? setCurrentMonth('12') :
+                setCurrentMonth((parseInt(CurrentMonth) - 1).toString())
         } else {
             setDay(day - 1)
             if (day === 1) {//下次变化才会渲染
-                setCurrentMonth((parseInt(CurrentMonth) - 1).toString())
+                parseInt(CurrentMonth) - 1 === 0 ? setCurrentMonth('12') :
+                    setCurrentMonth((parseInt(CurrentMonth) - 1).toString())
             }
         }
     }
     const UpDate = () => {
         if (time === 'month') {
-            setCurrentMonth((parseInt(CurrentMonth) + 1).toString())
+            parseInt(CurrentMonth) + 1 === 13 ? setCurrentMonth('1') :
+                setCurrentMonth((parseInt(CurrentMonth) + 1).toString())
         } else {
             setDay(day + 1)
             if (day === 31) {
-                setCurrentMonth((parseInt(CurrentMonth) + 1).toString())
+                parseInt(CurrentMonth) + 1 === 13 ? setCurrentMonth('1') :
+                    setCurrentMonth((parseInt(CurrentMonth) + 1).toString())
             }
         }
     }
@@ -119,14 +134,14 @@ const Chart = () => {
                     <span className={time === 'day' ? 'active' : ''} onClick={() => setTime('day')}>日</span>
                 </div>
                 <Icon name='RightCopy' onClick={DownDate} />
-                <div className='date'>{time === 'month' ? CurrentMonth + '月' : monthAndDay}</div>
+                <div className='date'>{time === 'month' ? CurrentMonth + '月' : monthAndDay + '日'}</div>
                 <Icon name='Left' onClick={UpDate} />
                 <Select defaultValue='-' className="select" onChange={change}>
                     <Option value='-'>支出</Option>
                     <Option value='+'>收入</Option>
                 </Select>
             </Header>
-            <ChartSection value={category} time={time} monthOrDay={time === 'month' ? CurrentMonth : monthAndDay} currentMonth={CurrentMonth} />
+            <ChartSection value={category} time={time} monthOrDay={time === 'month' ? CurrentMonth : monthAndDay} currentMonth={CurrentMonth} onChange={onChangeMonthAndDay} />
         </>
     )
 }
