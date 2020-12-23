@@ -57,8 +57,8 @@ const IconWrapper = styled.div`
 `
 const RecordWrapper = styled.div`
         position:absolute;
-        overflow:scroll;
         width:100%;
+        overflow-y:scroll;
         > div{
             display:flex;
             justify-content:center;
@@ -125,6 +125,10 @@ const Money = () => {
     const pen = document.getElementById('pen')
     const recordWrapper = document.getElementById('RecordWrapper')
     let top, height = 0
+    const width = document.body.clientWidth
+    if (recordWrapper && width > 450) {
+        recordWrapper.style.width = "450px"
+    }
     if (pen) {
         top = pen.getClientRects()[0].top
         height = pen.getClientRects()[0].height
@@ -198,6 +202,7 @@ const Money = () => {
                     </>
                 )}
             </RecordWrapper>
+
         </>
     )
 }
