@@ -56,7 +56,7 @@ const IconWrapper = styled.div`
     }
 `
 const RecordWrapper = styled.div`
-        position:absolute;
+        margin-top:11%;
         width:100%;
         overflow-y:scroll;
         > div{
