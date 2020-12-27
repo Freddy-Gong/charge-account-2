@@ -56,9 +56,9 @@ const IconWrapper = styled.div`
     }
 `
 const RecordWrapper = styled.div`
-        margin-top:11%;
-        width:100%;
-        overflow-y:scroll;
+        margin-top:15%;
+        height:100%;
+        overflow:auto;
         > div{
             display:flex;
             justify-content:center;

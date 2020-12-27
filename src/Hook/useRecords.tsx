@@ -26,6 +26,7 @@ const useRecords = () => {
             alert('请输入金额')
             return false
         }
+
         if (newRecord.tagId < 0) {
             alert('请选择标签')
             return false

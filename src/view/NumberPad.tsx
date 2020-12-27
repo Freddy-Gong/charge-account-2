@@ -28,11 +28,13 @@ const NumberPad = () => {
         })
     }
     const { addRecords } = useRecords()
+
     const submit = () => {
         if (addRecords(selected) === true) {
             alert('保存成功')
             setSelected(defaultDate)
         }
+
     }
     const [manageTag, setManageTag] = useState(false)
     return (

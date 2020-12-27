@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Icon from "Components/Icon"
 import Wrapper from './Wrapper'
 
@@ -25,6 +25,9 @@ const PadSection: React.FC<Props> = (props) => {
         _setResult(newResult)
         props.onChange(parseFloat(newResult))
     }
+    useEffect(() => {
+        setResult(props.value.toString())
+    }, [props.value])
     const Delete = () => {
         if (result.length === 1) {
             setResult('0')
@@ -83,8 +86,10 @@ const PadSection: React.FC<Props> = (props) => {
                 setResult(parseFloat(evil(equation).toFixed(9)).toString())
                 break
             case 'OK':
+                if (result.indexOf('x') > -1 || result.indexOf('-') > -1 || result.indexOf('+') > -1 || result.indexOf('÷') > -1) {
+                    alert('请先完成计算')
+                }
                 props.onOk()
-                setResult('0')
                 break
         }
     }
