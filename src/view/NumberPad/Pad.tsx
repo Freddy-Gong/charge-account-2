@@ -46,6 +46,15 @@ const PadSection: React.FC<Props> = (props) => {
         if (text === null) { return }
         switch (text) {
             case '0':
+                if ((result[result.length - 1] === '0' && result[result.length - 2] === 'x') || (result[result.length - 1] === '0' && result[result.length - 2] === '+') || (result[result.length - 1] === '0' && result[result.length - 2] === '-') || (result[result.length - 1] === '0' && result[result.length - 2] === '÷')) { return }
+                if (result === '0') {
+                    setResult(text)
+                } else {
+                    setResult(result + text)
+
+                }
+                setCalculator(true)
+                break
             case '1':
             case '2':
             case '3':
@@ -59,6 +68,7 @@ const PadSection: React.FC<Props> = (props) => {
                     setResult(text)
                 } else {
                     setResult(result + text)
+
                 }
                 setCalculator(true)
                 break
@@ -73,6 +83,7 @@ const PadSection: React.FC<Props> = (props) => {
                 }
                 break
             case '.':
+                if (result[result.length - 1] === 'x' || result[result.length - 1] === '+' || result[result.length - 1] === '-' || result[result.length - 1] === '÷') { return }
                 if (dot === true) {
                     setResult(result + text)
                     setDot(false)
@@ -82,14 +93,16 @@ const PadSection: React.FC<Props> = (props) => {
                 setResult('0')
                 break
             case '=':
+                if (result[result.length - 1] === 'x' || result[result.length - 1] === '+' || result[result.length - 1] === '-' || result[result.length - 1] === '÷') { return }
                 let equation = result.replace(new RegExp('x', 'g'), '*').replace(new RegExp('÷', 'g'), '/')
                 setResult(parseFloat(evil(equation).toFixed(9)).toString())
                 break
             case 'OK':
                 if (result.indexOf('x') > -1 || result.indexOf('-') > -1 || result.indexOf('+') > -1 || result.indexOf('÷') > -1) {
                     alert('请先完成计算')
+                } else {
+                    props.onOk()
                 }
-                props.onOk()
                 break
         }
     }
