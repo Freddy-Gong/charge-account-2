@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
-import { useUpdate } from './useUpdate'
 import Time from 'Components/TIme'
+import axios from 'axios'
 
 export type Record = {
     tagId: number,
@@ -17,7 +17,10 @@ type newRecord = Omit<Record, 'date' | 'day' | 'month' | 'creatAt'>
 const useRecords = () => {
     const [records, setRecords] = useState<Record[]>([])
     useEffect(() => {
-        setRecords(JSON.parse(window.localStorage.getItem('records') || '[{"tagId":2,"category":"-","account":20,"note":"","date":"2020-10-02","day":"2","month":"10","creatAt":"2020-09-02T06:45:43.209Z"},{"tagId":3,"category":"-","account":60,"note":"","date":"2020-09-02","day":"2","month":"9","creatAt":"2020-09-02T06:45:49.662Z"},{"tagId":7,"category":"-","account":100,"note":"","date":"2020-09-02","day":"2","month":"9","creatAt":"2020-09-02T06:46:06.925Z"},{"tagId":10,"category":"+","account":800,"note":"终于发奖金了","date":"2020-10-02","day":"2","month":"9","creatAt":"2020-09-02T06:52:38.412Z"},{"tagId":2,"category":"-","account":50,"note":"","date":"2020-09-01","day":"1","month":"9","creatAt":"2020-09-02T06:52:51.728Z"},{"tagId":2,"category":"-","account":80,"note":"送人去医院","date":"2020-09-01","day":"1","month":"9","creatAt":"2020-09-02T06:53:07.280Z"}]'))
+        axios.get('http://120.77.35.114:3000/record').then((response) => {
+            console.log(response.data.record)
+            setRecords(response.data.record)
+        })
     }, [])
 
     const { FullTime, Day, Month } = Time()
@@ -33,11 +36,12 @@ const useRecords = () => {
         }
         const record = { ...newRecord, date: FullTime, day: Day, month: Month, creatAt: (new Date()).toISOString() }
         setRecords([...records, record])
+        axios.post('http://120.77.35.114:3000/record', { ...record })
         return true
     }
-    useUpdate(() => {
-        window.localStorage.setItem('records', JSON.stringify(records))
-    }, records)
+    // useUpdate(() => {
+    //     window.localStorage.setItem('records', JSON.stringify(records))
+    // }, records)
 
     //排序
     const hash: { [key: string]: Record[] } = {}

@@ -100,6 +100,7 @@ const RecordWrapper = styled.div`
 const Money = () => {
     const { records, array } = useRecords()
     const { tags } = useTags()
+
     // useEffect(() => {
     //     if (tags) {
     //         console.log(tags)
@@ -172,7 +173,6 @@ const Money = () => {
                         </div>
                         {a[1].map((a) => {
                             if (a.category === '-' && tags && tags[0]) {
-
                                 return <div key={a.creatAt}>
                                     <span >{a.note}</span>
                                     <span >{tags.filter((t) =>
